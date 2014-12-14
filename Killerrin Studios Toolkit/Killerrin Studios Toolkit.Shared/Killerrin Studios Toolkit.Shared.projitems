@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>7b40bcb7-eb60-4012-b61a-b114fa9fe83c</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>KillerrinStudiosToolkit</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Consts.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\BooleanToVisibilityConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\RelativeDateTimeConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DebugTools.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Enumerators\APIResponse.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Enumerators\ClientOSType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Enumerators\CortanaRecognizerState.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Enumerators\StorageLocation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)KillerrinApplicationData.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SecondaryTileHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StorageTools.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)XamlControlHelper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Helpers\" />
+  </ItemGroup>
+</Project>

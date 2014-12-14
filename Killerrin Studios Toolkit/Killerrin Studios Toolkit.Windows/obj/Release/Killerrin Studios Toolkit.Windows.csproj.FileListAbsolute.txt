@@ -1,0 +1,16 @@
+C:\Users\killer rin\Programming\Libraries\Killerrin Studios\Killerrin Studios Toolkit\Killerrin Studios Toolkit.Windows\bin\Release\Killerrin Studios Toolkit.Windows.dll
+C:\Users\killer rin\Programming\Libraries\Killerrin Studios\Killerrin Studios Toolkit\Killerrin Studios Toolkit.Windows\bin\Release\Killerrin Studios Toolkit.Windows.pdb
+C:\Users\killer rin\Programming\Libraries\Killerrin Studios\Killerrin Studios Toolkit\Killerrin Studios Toolkit.Windows\bin\Release\Killerrin Studios Toolkit.Windows.pri
+C:\Users\killer rin\Programming\Libraries\Killerrin Studios\Killerrin Studios Toolkit\Killerrin Studios Toolkit.Windows\obj\Release\Killerrin Studios Toolkit.Windows.dll
+C:\Users\killer rin\Programming\Libraries\Killerrin Studios\Killerrin Studios Toolkit\Killerrin Studios Toolkit.Windows\obj\Release\Killerrin Studios Toolkit.Windows.pdb
+C:\Users\killer rin\Programming\Libraries\Killerrin Studios\Killerrin Studios Toolkit\Killerrin Studios Toolkit.Windows\obj\Release\priconfig.xml
+C:\Users\killer rin\Programming\Libraries\Killerrin Studios\Killerrin Studios Toolkit\Killerrin Studios Toolkit.Windows\obj\Release\priconfig.xml.intermediate
+C:\Users\killer rin\Programming\Libraries\Killerrin Studios\Killerrin Studios Toolkit\Killerrin Studios Toolkit.Windows\obj\Release\layout.resfiles
+C:\Users\killer rin\Programming\Libraries\Killerrin Studios\Killerrin Studios Toolkit\Killerrin Studios Toolkit.Windows\obj\Release\layout.resfiles.intermediate
+C:\Users\killer rin\Programming\Libraries\Killerrin Studios\Killerrin Studios Toolkit\Killerrin Studios Toolkit.Windows\obj\Release\resources.resfiles
+C:\Users\killer rin\Programming\Libraries\Killerrin Studios\Killerrin Studios Toolkit\Killerrin Studios Toolkit.Windows\obj\Release\resources.resfiles.intermediate
+C:\Users\killer rin\Programming\Libraries\Killerrin Studios\Killerrin Studios Toolkit\Killerrin Studios Toolkit.Windows\obj\Release\pri.resfiles
+C:\Users\killer rin\Programming\Libraries\Killerrin Studios\Killerrin Studios Toolkit\Killerrin Studios Toolkit.Windows\obj\Release\pri.resfiles.intermediate
+C:\Users\killer rin\Programming\Libraries\Killerrin Studios\Killerrin Studios Toolkit\Killerrin Studios Toolkit.Windows\obj\Release\qualifiers.txt
+C:\Users\killer rin\Programming\Libraries\Killerrin Studios\Killerrin Studios Toolkit\Killerrin Studios Toolkit.Windows\obj\Release\qualifiers.txt.intermediate
+C:\Users\killer rin\Programming\Libraries\Killerrin Studios\Killerrin Studios Toolkit\Killerrin Studios Toolkit.Windows\obj\Release\MultipleQualifiersPerDimensionFound.txt

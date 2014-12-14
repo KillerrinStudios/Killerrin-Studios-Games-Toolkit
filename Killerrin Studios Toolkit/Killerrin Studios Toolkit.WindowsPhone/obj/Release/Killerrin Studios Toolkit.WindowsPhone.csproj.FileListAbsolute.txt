@@ -1,0 +1,16 @@
+C:\Users\killer rin\Programming\Libraries\Killerrin Studios\Killerrin Studios Toolkit\Killerrin Studios Toolkit.WindowsPhone\bin\Release\Killerrin Studios Toolkit.WindowsPhone.dll
+C:\Users\killer rin\Programming\Libraries\Killerrin Studios\Killerrin Studios Toolkit\Killerrin Studios Toolkit.WindowsPhone\bin\Release\Killerrin Studios Toolkit.WindowsPhone.pdb
+C:\Users\killer rin\Programming\Libraries\Killerrin Studios\Killerrin Studios Toolkit\Killerrin Studios Toolkit.WindowsPhone\bin\Release\Killerrin Studios Toolkit.WindowsPhone.pri
+C:\Users\killer rin\Programming\Libraries\Killerrin Studios\Killerrin Studios Toolkit\Killerrin Studios Toolkit.WindowsPhone\obj\Release\Killerrin Studios Toolkit.WindowsPhone.dll
+C:\Users\killer rin\Programming\Libraries\Killerrin Studios\Killerrin Studios Toolkit\Killerrin Studios Toolkit.WindowsPhone\obj\Release\Killerrin Studios Toolkit.WindowsPhone.pdb
+C:\Users\killer rin\Programming\Libraries\Killerrin Studios\Killerrin Studios Toolkit\Killerrin Studios Toolkit.WindowsPhone\obj\Release\priconfig.xml
+C:\Users\killer rin\Programming\Libraries\Killerrin Studios\Killerrin Studios Toolkit\Killerrin Studios Toolkit.WindowsPhone\obj\Release\priconfig.xml.intermediate
+C:\Users\killer rin\Programming\Libraries\Killerrin Studios\Killerrin Studios Toolkit\Killerrin Studios Toolkit.WindowsPhone\obj\Release\layout.resfiles
+C:\Users\killer rin\Programming\Libraries\Killerrin Studios\Killerrin Studios Toolkit\Killerrin Studios Toolkit.WindowsPhone\obj\Release\layout.resfiles.intermediate
+C:\Users\killer rin\Programming\Libraries\Killerrin Studios\Killerrin Studios Toolkit\Killerrin Studios Toolkit.WindowsPhone\obj\Release\resources.resfiles
+C:\Users\killer rin\Programming\Libraries\Killerrin Studios\Killerrin Studios Toolkit\Killerrin Studios Toolkit.WindowsPhone\obj\Release\resources.resfiles.intermediate
+C:\Users\killer rin\Programming\Libraries\Killerrin Studios\Killerrin Studios Toolkit\Killerrin Studios Toolkit.WindowsPhone\obj\Release\pri.resfiles
+C:\Users\killer rin\Programming\Libraries\Killerrin Studios\Killerrin Studios Toolkit\Killerrin Studios Toolkit.WindowsPhone\obj\Release\pri.resfiles.intermediate
+C:\Users\killer rin\Programming\Libraries\Killerrin Studios\Killerrin Studios Toolkit\Killerrin Studios Toolkit.WindowsPhone\obj\Release\qualifiers.txt
+C:\Users\killer rin\Programming\Libraries\Killerrin Studios\Killerrin Studios Toolkit\Killerrin Studios Toolkit.WindowsPhone\obj\Release\qualifiers.txt.intermediate
+C:\Users\killer rin\Programming\Libraries\Killerrin Studios\Killerrin Studios Toolkit\Killerrin Studios Toolkit.WindowsPhone\obj\Release\MultipleQualifiersPerDimensionFound.txt
