@@ -27,6 +27,17 @@ namespace KillerrinStudiosToolkit.Converters
             throw new Exception();
         }
 
+        public static Visibility OppositeVisibility(Visibility visibility)
+        {
+            switch (visibility) {
+                case Visibility.Collapsed:
+                    return Visibility.Visible;
+                case Visibility.Visible:
+                    return Visibility.Collapsed;
+            }
+            throw new Exception();
+        }
+
         public object Convert(object value, Type targetType, object parameter, string culture)
         {
             return ConvertToVisibility((bool)value);

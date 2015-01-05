@@ -30,3 +30,19 @@ C:\Users\killer rin\Programming\Libraries\Killerrin Studios\Killerrin Studios To
 C:\Users\killer rin\Programming\Libraries\Killerrin Studios\Killerrin Studios Toolkit\Killerrin Studios Toolkit.WindowsPhone\obj\Debug\qualifiers.txt
 C:\Users\killer rin\Programming\Libraries\Killerrin Studios\Killerrin Studios Toolkit\Killerrin Studios Toolkit.WindowsPhone\obj\Debug\qualifiers.txt.intermediate
 C:\Users\killer rin\Programming\Libraries\Killerrin Studios\Killerrin Studios Toolkit\Killerrin Studios Toolkit.WindowsPhone\obj\Debug\MultipleQualifiersPerDimensionFound.txt
+C:\Surface SD\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit\Killerrin Studios Toolkit.WindowsPhone\bin\Debug\Killerrin Studios Toolkit.WindowsPhone.dll
+C:\Surface SD\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit\Killerrin Studios Toolkit.WindowsPhone\bin\Debug\Killerrin Studios Toolkit.WindowsPhone.pdb
+C:\Surface SD\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit\Killerrin Studios Toolkit.WindowsPhone\bin\Debug\Killerrin Studios Toolkit.WindowsPhone.pri
+C:\Surface SD\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit\Killerrin Studios Toolkit.WindowsPhone\obj\Debug\Killerrin Studios Toolkit.WindowsPhone.dll
+C:\Surface SD\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit\Killerrin Studios Toolkit.WindowsPhone\obj\Debug\Killerrin Studios Toolkit.WindowsPhone.pdb
+C:\Surface SD\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit\Killerrin Studios Toolkit.WindowsPhone\obj\Debug\priconfig.xml
+C:\Surface SD\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit\Killerrin Studios Toolkit.WindowsPhone\obj\Debug\priconfig.xml.intermediate
+C:\Surface SD\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit\Killerrin Studios Toolkit.WindowsPhone\obj\Debug\layout.resfiles
+C:\Surface SD\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit\Killerrin Studios Toolkit.WindowsPhone\obj\Debug\layout.resfiles.intermediate
+C:\Surface SD\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit\Killerrin Studios Toolkit.WindowsPhone\obj\Debug\resources.resfiles
+C:\Surface SD\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit\Killerrin Studios Toolkit.WindowsPhone\obj\Debug\resources.resfiles.intermediate
+C:\Surface SD\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit\Killerrin Studios Toolkit.WindowsPhone\obj\Debug\pri.resfiles
+C:\Surface SD\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit\Killerrin Studios Toolkit.WindowsPhone\obj\Debug\pri.resfiles.intermediate
+C:\Surface SD\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit\Killerrin Studios Toolkit.WindowsPhone\obj\Debug\qualifiers.txt
+C:\Surface SD\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit\Killerrin Studios Toolkit.WindowsPhone\obj\Debug\qualifiers.txt.intermediate
+C:\Surface SD\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit\Killerrin Studios Toolkit.WindowsPhone\obj\Debug\MultipleQualifiersPerDimensionFound.txt
