@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using System.IO;
 
 using KillerrinStudiosToolkit.Enumerators;
+using KillerrinStudiosToolkit.Interfaces;
+using KillerrinStudiosToolkit.Helpers;
 
 namespace KillerrinStudiosToolkit
 {
@@ -56,7 +58,7 @@ namespace KillerrinStudiosToolkit
             return true;
         }
 
-        public static async Task<bool> SaveToStorage(string fileName, string content)
+        public static async Task<bool> SaveToStorage(string fileName, ISaveable content)
         {
             if (Consts.isApplicationClosing) return false;
 
@@ -64,7 +66,7 @@ namespace KillerrinStudiosToolkit
 
             try {
                 Debug.WriteLine("SaveToStorage(): Saving to Storage");
-                byte[] data = Encoding.UTF8.GetBytes(content);
+                byte[] data = content.Save();
 
                 StorageFolder folder = ApplicationData.Current.LocalFolder;
                 StorageFile file = await folder.CreateFileAsync(fileName, CreationCollisionOption.ReplaceExisting);
@@ -88,20 +90,11 @@ namespace KillerrinStudiosToolkit
                 System.Net.Http.HttpClient client = new System.Net.Http.HttpClient();
 
                 Debug.WriteLine("Grabbing File");
-                byte[] result = await client.GetByteArrayAsync(serverURI);
+                byte[] data = await client.GetByteArrayAsync(serverURI);
+                SaveableByte saveData = new SaveableByte(data);
 
-                Debug.WriteLine("Writing File");
-                StorageFolder folder = ApplicationData.Current.LocalFolder;
-                StorageFile file = await folder.CreateFileAsync(fileName, CreationCollisionOption.ReplaceExisting);
-
-                using (Stream s = await file.OpenStreamForWriteAsync()) {
-                    await s.WriteAsync(result, 0, result.Length);
-                }
-
-                Debug.WriteLine("Storage Saved: " + fileName);
-
-                isSavingComplete = true;
-                return true;
+                bool result = await SaveToStorage(fileName, saveData);
+                return result;
             }
             catch (Exception) { isSavingComplete = true; return false; }
         }
