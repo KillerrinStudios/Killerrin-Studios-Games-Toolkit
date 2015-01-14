@@ -20,6 +20,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Enumerators\CortanaRecognizerState.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Enumerators\StorageLocation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Events\ReceivedMessageEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\SerializableByte.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\SerializableString.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\ISerializable.cs" />
