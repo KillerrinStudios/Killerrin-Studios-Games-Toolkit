@@ -11,7 +11,7 @@ using System.Diagnostics;
 
 namespace KillerrinStudiosToolkit
 {
-    public static class SecondaryTileHelper
+    public class SecondaryTileHelper
     {
         public static Rect GetElementRect(FrameworkElement element)
         {

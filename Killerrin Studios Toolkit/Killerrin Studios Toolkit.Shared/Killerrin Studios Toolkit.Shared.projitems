@@ -17,6 +17,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Enumerators\ClientOSType.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Enumerators\CortanaRecognizerState.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Enumerators\StorageLocation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\SaveableByte.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\SaveableString.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\ISaveable.cs" />

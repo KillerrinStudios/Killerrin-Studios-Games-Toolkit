@@ -6,9 +6,9 @@ using Windows.UI.Xaml.Controls;
 
 namespace KillerrinStudiosToolkit
 {
-    public static class XamlControlHelper
+    public partial class XamlControlHelper
     {
-        private static bool displayDebugText = false;
+        public static bool displayDebugText = false;
 
         public static void ChangeProgressIndicator(object progressBar, bool isEnabled)
         {

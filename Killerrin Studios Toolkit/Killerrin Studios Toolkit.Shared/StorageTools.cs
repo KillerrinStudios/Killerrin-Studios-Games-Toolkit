@@ -13,11 +13,11 @@ using KillerrinStudiosToolkit.Helpers;
 
 namespace KillerrinStudiosToolkit
 {
-    public static class StorageTools
+    public partial class StorageTools
     {
         public static bool isSavingComplete = true; // If True, it is safe to exit. If not, loop continuously
 
-        public static class StorageConsts
+        public partial class StorageConsts
         {
             public static string LocalStorageFolderPrefix = "ms-appdata:///local/";
             public static string VisualStudioSolutionFilePrefix = "ms-appx://";

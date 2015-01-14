@@ -5,11 +5,10 @@ using System.Diagnostics;
 
 namespace KillerrinStudiosToolkit
 {
-    public static class DebugTools
+    public partial class DebugTools
     {
         // Testing Code
         public static bool DebugMode = Debugger.IsAttached;
-        public static bool HandleBugSenseInDebug = false;
 
         public static string PrintOutException(string headerMessage, Exception ex)
         {

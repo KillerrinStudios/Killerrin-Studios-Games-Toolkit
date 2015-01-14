@@ -16,7 +16,7 @@ using KillerrinStudiosToolkit.Enumerators;
 
 namespace KillerrinStudiosToolkit
 {
-    public static class CortanaHelper
+    public partial class CortanaHelper
     {
         public static event VoiceRecognitionResultEventHandler CortanaVoiceRecognitionResult;
 
@@ -32,12 +32,10 @@ namespace KillerrinStudiosToolkit
         /// Installs the Voice Command Definition (VCD) file associated with the application.
         /// Based on OS version, installs a separate document based on version 1.0 of the schema or version 1.1.
         /// </summary>
-        public static async void InstallVoiceCommands()
+        public static async void InstallVoiceCommands(string voiceCommandDefinitionPath = "ms-appx:///VoiceCommandDefinition_8.1.xml")
         {
-            const string wp81vcdPath = "ms-appx:///VoiceCommandDefinition_8.1.xml";
-
             try {
-                Uri vcdUri = new Uri(wp81vcdPath);
+                Uri vcdUri = new Uri(voiceCommandDefinitionPath);
 
                 StorageFile voiceCommandDef = await StorageFile.GetFileFromApplicationUriAsync(vcdUri);
                 await VoiceCommandManager.InstallCommandSetsFromStorageFileAsync(voiceCommandDef);
@@ -120,14 +118,14 @@ namespace KillerrinStudiosToolkit
         }
 
 
-        public static void PlayCortanaListeningEarcon(MediaElement player)
+        public static void PlayCortanaListeningEarcon(MediaElement player, string listeningEarconPath = "ms-appx:///Assets/ListeningEarcon.wav")
         {
-            player.Source = new Uri("ms-appx:///Assets/ListeningEarcon.wav");
+            player.Source = new Uri(listeningEarconPath);
             player.Play();
         }
-        public static void PlayCortanaCancelledEarcon(MediaElement player)
+        public static void PlayCortanaCancelledEarcon(MediaElement player, string cancelledEarconPath = "ms-appx:///Assets/CancelledEarcon.wav")
         {
-            player.Source = new Uri("ms-appx:///Assets/CancelledEarcon.wav");
+            player.Source = new Uri(cancelledEarconPath);
             player.Play();
         }
 

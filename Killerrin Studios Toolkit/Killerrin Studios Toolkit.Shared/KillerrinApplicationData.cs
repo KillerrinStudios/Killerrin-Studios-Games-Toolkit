@@ -3,22 +3,26 @@ using System.Collections.Generic;
 using System.Text;
 
 using KillerrinStudiosToolkit.Enumerators;
+using System.Threading.Tasks;
 
 namespace KillerrinStudiosToolkit
 {
-    public class KillerrinApplicationData
+    public partial class KillerrinApplicationData
     {
+        public string PackageID;
+        public string PublisherID;
+
         public string Name;
         public string Version;
         public string Description;
 
-        public const string Developer = "Killerrin Studios";
-        public const string Website = "http://www.killerrin.com";
-        public const string Twitter = "https://www.twitter.com/killerrin";
-        public const string Facebook = "https://www.facebook.com/KillerrinStudios";
+        public string Developer = "Killerrin Studios";
+        public string Website = "http://www.killerrin.com";
+        public string Twitter = "https://www.twitter.com/killerrin";
+        public string Facebook = "https://www.facebook.com/KillerrinStudios";
         
-        public const string FeedbackUrl = "support@killerrin.com";
-        public const string SupportUrl = "support@killerrin.com";
+        public string FeedbackUrl = "support@killerrin.com";
+        public string SupportUrl = "support@killerrin.com";
         public string FeedbackSubject = "feedback - ";
         public string SupportSubject = "support - ";
         
@@ -30,11 +34,15 @@ namespace KillerrinStudiosToolkit
         public ClientOSType OS = ClientOSType.Windows81;
 #endif
 
-        public KillerrinApplicationData(string name,
+        public KillerrinApplicationData(string packageID,
+                                        string publisherID,
+                                        string name,
                                         string version,
                                         string description,
                                         string otherWebsite = "")
         {
+            PackageID = packageID;
+            PublisherID = publisherID;
 
             Name = name;
             Version = version;
@@ -43,6 +51,16 @@ namespace KillerrinStudiosToolkit
 
             FeedbackSubject += name + ": ";
             SupportSubject += name + ": ";
+        }
+
+        public async Task<bool> LaunchReview()
+        {
+#if WINDOWS_PHONE_APP
+            bool result = await Windows.System.Launcher.LaunchUriAsync(new Uri("ms-windows-store:reviewapp?appid=" + PackageID));
+#else
+            bool result = await Windows.System.Launcher.LaunchUriAsync(new Uri("ms-windows-store:review?PFN=" + PackageID));
+#endif
+            return result;
         }
     }
 }

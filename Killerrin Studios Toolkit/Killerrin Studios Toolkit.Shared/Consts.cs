@@ -2,26 +2,15 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Diagnostics;
+using System.Net.NetworkInformation;
 
 namespace KillerrinStudiosToolkit
 {
-    public class Consts
+    public partial class Consts
     {
         public static bool isApplicationClosing = false;
+        public static Random random = new Random();
 
-        public static string ConvertToAPIConpliantString(string _text, char charToParse = ' ', char replacementChar = '-')
-        {
-            Debug.WriteLine("ConvertToAPIConpliantString()");
-            string text = _text;
-            text.ToLower();
-            char[] txtarr = text.ToCharArray();
-            text = "";
-            foreach (char c in txtarr) {
-                if (c == charToParse) { text += replacementChar; }
-                else { text += c; }
-            }
-
-            return text;
-        }
+        public static bool IsConnectedToInternet() { return NetworkInterface.GetIsNetworkAvailable(); }
     }
 }
