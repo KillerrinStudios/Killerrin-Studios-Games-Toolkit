@@ -300,7 +300,7 @@ namespace KillerrinStudiosToolkit
             return null;
         }
 
-        private async Task<ISerializable> GetData()
+        private async Task<SerializableByte> GetData()
         {
             try {
                 if (dataReader == null) dataReader = new DataReader(socket.InputStream);
@@ -312,8 +312,7 @@ namespace KillerrinStudiosToolkit
                 dataReader.ReadBytes(bytes);
                 Debug.WriteLine("Message received: " + bytes);
 
-                ISerializable serializedData = new SerializableByte(bytes);
-                return serializedData;
+                return new SerializableByte(bytes);;
             }
             catch (Exception ex) {
                 Debug.WriteLine("GetMessage: " + ex.Message);

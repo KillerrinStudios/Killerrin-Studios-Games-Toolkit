@@ -33,6 +33,13 @@ namespace KillerrinStudiosToolkit.Helpers
         public static string DeserializeString(byte[] data) { return Encoding.UTF8.GetString(data, 0, data.Length); }
         #endregion
 
+        #region Operator Overloads
+        public static implicit operator SerializableString(SerializableByte saveableByte)
+        {
+            return new SerializableString(saveableByte);
+        }
+        #endregion
+
         byte[] ISerializable.Serialize() { return Serialize(); }
         public Byte[] Serialize()
         {

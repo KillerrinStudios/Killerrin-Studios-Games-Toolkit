@@ -14,6 +14,11 @@ namespace KillerrinStudiosToolkit.Helpers
             Data = content;
         }
 
+        public static implicit operator SerializableByte(SerializableString serializableString)
+        {
+            return new SerializableByte(serializableString.Serialize());
+        }
+
         byte[] ISerializable.Serialize() { return Serialize(); }
         public Byte[] Serialize()
         {
