@@ -5,8 +5,9 @@ using System.Text;
 namespace KillerrinStudiosToolkit.Interfaces
 {
     
-    public interface ISaveable
+    public interface ISerializable
     {
-        byte[] Save();
+        byte[] Serialize();
+        object Deserialize();
     }
 }

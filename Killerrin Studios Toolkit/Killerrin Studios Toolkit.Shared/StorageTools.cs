@@ -58,7 +58,7 @@ namespace KillerrinStudiosToolkit
             return true;
         }
 
-        public static async Task<bool> SaveToStorage(string fileName, ISaveable content)
+        public static async Task<bool> SaveToStorage(string fileName, ISerializable content)
         {
             if (Consts.isApplicationClosing) return false;
 
@@ -66,7 +66,7 @@ namespace KillerrinStudiosToolkit
 
             try {
                 Debug.WriteLine("SaveToStorage(): Saving to Storage");
-                byte[] data = content.Save();
+                byte[] data = content.Serialize();
 
                 StorageFolder folder = ApplicationData.Current.LocalFolder;
                 StorageFile file = await folder.CreateFileAsync(fileName, CreationCollisionOption.ReplaceExisting);
@@ -91,7 +91,7 @@ namespace KillerrinStudiosToolkit
 
                 Debug.WriteLine("Grabbing File");
                 byte[] data = await client.GetByteArrayAsync(serverURI);
-                SaveableByte saveData = new SaveableByte(data);
+                SerializableByte saveData = new SerializableByte(data);
 
                 bool result = await SaveToStorage(fileName, saveData);
                 return result;
@@ -107,7 +107,7 @@ namespace KillerrinStudiosToolkit
             StorageFile file = await folder.GetFileAsync(fileName);
             return file;
         }
-        public static async Task<string> LoadFileFromStorage(string fileName)
+        public static async Task<SerializableString> LoadFileFromStorage(string fileName)
         {
             StorageFile file = await LoadStorageFileFromStorage(fileName);
 
@@ -117,7 +117,7 @@ namespace KillerrinStudiosToolkit
                 await s.ReadAsync(data, 0, (int)s.Length);
             }
             Debug.WriteLine(fileName + " Loaded");
-            return Encoding.UTF8.GetString(data, 0, data.Length);
+            return new SerializableString(data);
         }
 
 
@@ -137,7 +137,7 @@ namespace KillerrinStudiosToolkit
             }
             return file;
         }
-        public static async Task<string> LoadPackagedFile(string folderName, string fileName)
+        public static async Task<SerializableString> LoadPackagedFile(string folderName, string fileName)
         {
             StorageFile file = await LoadStorageFileFromPackage(folderName, fileName);
 
@@ -147,7 +147,7 @@ namespace KillerrinStudiosToolkit
                 await s.ReadAsync(data, 0, (int)s.Length);
             }
             Debug.WriteLine(fileName + " Loaded");
-            return Encoding.UTF8.GetString(data, 0, data.Length);
+            return new SerializableString(data);
         }
         #endregion
 
