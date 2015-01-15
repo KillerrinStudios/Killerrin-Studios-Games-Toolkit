@@ -22,6 +22,8 @@ namespace KillerrinStudiosToolkit
     public class BluetoothConnectionHelper
     {
         private ConnectMethod connectMode;
+        public ConnectMethod ConnectMode { get { return connectMode; } }
+
 
         public BluetoothConnectionHelper(string crossPlatformServiceUid = null)
         {
@@ -343,7 +345,6 @@ namespace KillerrinStudiosToolkit
         public bool ConnectCrossPlatform { get; set; }
     
         private Guid rfcommServiceUuid;
-    
         public string RfcommServiceUuid
         {
             get
