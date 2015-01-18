@@ -54,9 +54,10 @@ namespace KillerrinStudiosToolkit
             }
         }
 
-        public static async void StartListening(string exampleText = "", bool readBackEnabled = false, bool showConfirmation = false)
+        public static async void StartListening(string exampleText = "", bool readBackEnabled = false, bool showConfirmation = false, bool showUI = true)
         {
             if (cortanaRecognizerState == CortanaRecognizerState.Listening) return;
+            cortanaRecognizerState = CortanaRecognizerState.Listening;
 
             Debug.WriteLine("Entering: StartListening()");
 
@@ -65,19 +66,23 @@ namespace KillerrinStudiosToolkit
             speechRecognizer.RecognitionQualityDegrading += speechRecognizer_RecognitionQualityDegrading;
 
             // Set special commands
-            speechRecognizer.UIOptions.ExampleText = exampleText;
-            speechRecognizer.UIOptions.IsReadBackEnabled = readBackEnabled;
-            speechRecognizer.UIOptions.ShowConfirmation = showConfirmation;
+            if (showUI) {
+                speechRecognizer.UIOptions.ExampleText = exampleText;
+                speechRecognizer.UIOptions.IsReadBackEnabled = readBackEnabled;
+                speechRecognizer.UIOptions.ShowConfirmation = showConfirmation;
+            }
 
             Debug.WriteLine("Speech Recognizer Set");
-
-            cortanaRecognizerState = CortanaRecognizerState.Listening;
             SpeechRecognitionResult speechRecognitionResult = null;
 
             Debug.WriteLine("Setting States");
             try {
                 await speechRecognizer.CompileConstraintsAsync();
-                speechResultTask = speechRecognizer.RecognizeWithUIAsync();// RecognizeAsync();
+
+                if (showUI)
+                    speechResultTask = speechRecognizer.RecognizeWithUIAsync();
+                else
+                    speechResultTask = speechRecognizer.RecognizeAsync();
 
                 Debug.WriteLine("Beginning Recognition");
 
