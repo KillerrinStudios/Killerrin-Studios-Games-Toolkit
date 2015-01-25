@@ -46,3 +46,19 @@ C:\Users\killer rin\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios
 C:\Users\killer rin\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit\Killerrin Studios Toolkit.Windows\obj\Release\qualifiers.txt
 C:\Users\killer rin\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit\Killerrin Studios Toolkit.Windows\obj\Release\qualifiers.txt.intermediate
 C:\Users\killer rin\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit\Killerrin Studios Toolkit.Windows\obj\Release\MultipleQualifiersPerDimensionFound.txt
+D:\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit.Windows\bin\Release\Killerrin Studios Toolkit.Windows.dll
+D:\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit.Windows\bin\Release\Killerrin Studios Toolkit.Windows.pdb
+D:\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit.Windows\bin\Release\Killerrin Studios Toolkit.Windows.pri
+D:\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit.Windows\obj\Release\Killerrin Studios Toolkit.Windows.dll
+D:\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit.Windows\obj\Release\Killerrin Studios Toolkit.Windows.pdb
+D:\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit.Windows\obj\Release\priconfig.xml
+D:\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit.Windows\obj\Release\priconfig.xml.intermediate
+D:\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit.Windows\obj\Release\layout.resfiles
+D:\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit.Windows\obj\Release\layout.resfiles.intermediate
+D:\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit.Windows\obj\Release\resources.resfiles
+D:\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit.Windows\obj\Release\resources.resfiles.intermediate
+D:\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit.Windows\obj\Release\pri.resfiles
+D:\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit.Windows\obj\Release\pri.resfiles.intermediate
+D:\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit.Windows\obj\Release\qualifiers.txt
+D:\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit.Windows\obj\Release\qualifiers.txt.intermediate
+D:\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit.Windows\obj\Release\MultipleQualifiersPerDimensionFound.txt

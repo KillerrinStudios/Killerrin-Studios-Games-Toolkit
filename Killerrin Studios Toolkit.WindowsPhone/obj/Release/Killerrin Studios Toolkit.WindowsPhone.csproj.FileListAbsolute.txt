@@ -46,3 +46,19 @@ C:\Users\killer rin\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios
 C:\Users\killer rin\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit\Killerrin Studios Toolkit.WindowsPhone\obj\Release\qualifiers.txt
 C:\Users\killer rin\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit\Killerrin Studios Toolkit.WindowsPhone\obj\Release\qualifiers.txt.intermediate
 C:\Users\killer rin\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit\Killerrin Studios Toolkit.WindowsPhone\obj\Release\MultipleQualifiersPerDimensionFound.txt
+D:\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit.WindowsPhone\bin\Release\Killerrin Studios Toolkit.WindowsPhone.dll
+D:\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit.WindowsPhone\bin\Release\Killerrin Studios Toolkit.WindowsPhone.pdb
+D:\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit.WindowsPhone\bin\Release\Killerrin Studios Toolkit.WindowsPhone.pri
+D:\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit.WindowsPhone\obj\Release\Killerrin Studios Toolkit.WindowsPhone.dll
+D:\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit.WindowsPhone\obj\Release\Killerrin Studios Toolkit.WindowsPhone.pdb
+D:\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit.WindowsPhone\obj\Release\priconfig.xml
+D:\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit.WindowsPhone\obj\Release\priconfig.xml.intermediate
+D:\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit.WindowsPhone\obj\Release\layout.resfiles
+D:\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit.WindowsPhone\obj\Release\layout.resfiles.intermediate
+D:\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit.WindowsPhone\obj\Release\resources.resfiles
+D:\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit.WindowsPhone\obj\Release\resources.resfiles.intermediate
+D:\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit.WindowsPhone\obj\Release\pri.resfiles
+D:\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit.WindowsPhone\obj\Release\pri.resfiles.intermediate
+D:\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit.WindowsPhone\obj\Release\qualifiers.txt
+D:\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit.WindowsPhone\obj\Release\qualifiers.txt.intermediate
+D:\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit.WindowsPhone\obj\Release\MultipleQualifiersPerDimensionFound.txt
