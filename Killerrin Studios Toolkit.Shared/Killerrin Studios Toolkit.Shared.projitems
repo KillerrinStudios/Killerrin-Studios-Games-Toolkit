@@ -13,6 +13,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Consts.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\RelativeDateTimeConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data Models\NameDescription.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data Models\NameImage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data Models\NameImageDescription.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DebugTools.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Enumerators\APIResponse.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Enumerators\ClientOSType.cs" />
