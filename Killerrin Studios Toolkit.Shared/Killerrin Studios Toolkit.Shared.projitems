@@ -21,6 +21,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Enumerators\ClientOSType.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Enumerators\ConnectMethod.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Enumerators\CortanaRecognizerState.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Enumerators\NetworkConnectionState.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Enumerators\StorageLocation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Events\ReceivedMessageEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions.cs" />

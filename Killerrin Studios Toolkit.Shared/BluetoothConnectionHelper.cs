@@ -24,10 +24,23 @@ namespace KillerrinStudiosToolkit
         private ConnectMethod connectMode;
         public ConnectMethod ConnectMode { get { return connectMode; } }
 
+        private NetworkConnectionState m_networkConnectionState;
+        public NetworkConnectionState NetworkConnectionStatus { get { return m_networkConnectionState; } protected set { m_networkConnectionState = value; } }
 
         public BluetoothConnectionHelper(string crossPlatformServiceUid = null)
         {
+            NetworkConnectionStatus = NetworkConnectionState.NotSearching;
+
             RfcommServiceUuid = crossPlatformServiceUid;
+            PeerFinder.TriggeredConnectionStateChanged += PeerFinderTriggeredConnectionStateChanged;
+            PeerFinder.ConnectionRequested += PeerFinderConnectionRequested;
+        }
+
+        public BluetoothConnectionHelper(Guid crossPlatformServiceUid)
+        {
+            NetworkConnectionStatus = NetworkConnectionState.NotSearching;
+
+            rfcommServiceUuid = crossPlatformServiceUid;
             PeerFinder.TriggeredConnectionStateChanged += PeerFinderTriggeredConnectionStateChanged;
             PeerFinder.ConnectionRequested += PeerFinderConnectionRequested;
         }
@@ -61,11 +74,13 @@ namespace KillerrinStudiosToolkit
     
             try
             {
+                NetworkConnectionStatus = NetworkConnectionState.Searching;
                 PeerFinder.Start();
             }
             catch (Exception)
             {
                 Debug.WriteLine("Peerfinder error");
+                NetworkConnectionStatus = NetworkConnectionState.NotSearching;
             }
     
             // Enable browse
@@ -135,6 +150,7 @@ namespace KillerrinStudiosToolkit
             StartListeningForMessages();
             PeerFinder.Stop();
             FireConnectionStatusChanged(TriggeredConnectState.Completed);
+            NetworkConnectionStatus = NetworkConnectionState.Connected;
         }
     
         private async void StartListeningForMessages()
@@ -202,10 +218,14 @@ namespace KillerrinStudiosToolkit
                                 dataWriter = new DataWriter(socket.OutputStream);
                             }
 
-                            dataWriter.WriteInt32(serializedData.Serialize().Length);
+                            // Serialize the Data
+                            byte[] dataToSend = serializedData.Serialize();
+
+                            // Send it out
+                            dataWriter.WriteInt32(dataToSend.Length);
                             dataWriter.StoreAsync();
 
-                            dataWriter.WriteBytes(serializedData.Serialize());
+                            dataWriter.WriteBytes(dataToSend);
                             dataWriter.StoreAsync();
                         }
                     }
@@ -218,6 +238,7 @@ namespace KillerrinStudiosToolkit
     
         public void Reset()
         {
+            NetworkConnectionStatus = NetworkConnectionState.NotSearching;
             PeerFinder.Stop();
             StopInitBrowseWpToWin();
     
