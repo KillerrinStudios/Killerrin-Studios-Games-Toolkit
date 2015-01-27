@@ -97,7 +97,7 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Killerrin Studios Toolkit.WindowsPhone">
-      <HintPath>..\..\..\..\..\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit.WindowsPhone\bin\Debug\Killerrin Studios Toolkit.WindowsPhone.dll</HintPath>
+      <HintPath>..\..\..\..\Killerrin Studios Toolkit.WindowsPhone\bin\Debug\Killerrin Studios Toolkit.WindowsPhone.dll</HintPath>
     </Reference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">

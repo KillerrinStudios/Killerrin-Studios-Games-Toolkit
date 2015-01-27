@@ -119,7 +119,7 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Killerrin Studios Toolkit.Windows">
-      <HintPath>..\..\..\..\..\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit.Windows\bin\Debug\Killerrin Studios Toolkit.Windows.dll</HintPath>
+      <HintPath>..\..\..\..\Killerrin Studios Toolkit.Windows\bin\Debug\Killerrin Studios Toolkit.Windows.dll</HintPath>
     </Reference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
