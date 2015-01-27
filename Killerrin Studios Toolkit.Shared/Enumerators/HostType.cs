@@ -4,11 +4,9 @@ using System.Text;
 
 namespace KillerrinStudiosToolkit.Enumerators
 {
-    public enum NetworkConnectionState
+    public enum HostType
     {
-        NotSearching,
-        Searching,
-        AttemptingToConnect,
-        Connected
+        Host,
+        Client
     }
 }

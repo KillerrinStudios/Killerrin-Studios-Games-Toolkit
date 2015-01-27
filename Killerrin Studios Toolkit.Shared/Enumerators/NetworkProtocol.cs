@@ -4,11 +4,10 @@ using System.Text;
 
 namespace KillerrinStudiosToolkit.Enumerators
 {
-    public enum NetworkConnectionState
+    public enum NetworkProtocol
     {
-        NotSearching,
-        Searching,
-        AttemptingToConnect,
-        Connected
+        TCP,
+        UDP,
+        Other
     }
 }

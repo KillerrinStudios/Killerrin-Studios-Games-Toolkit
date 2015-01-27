@@ -167,7 +167,7 @@ namespace KillerrinStudiosToolkit
                         {
                             if (message != null && MessageReceived != null)
                             {
-                                MessageReceived(this, new ReceivedMessageEventArgs(message));
+                                MessageReceived(this, new ReceivedMessageEventArgs(message, null));
                             }
                         }
                     }
@@ -381,8 +381,8 @@ namespace KillerrinStudiosToolkit
                 }
             }
         }
-    
-#if WINDOWS_PHONE
+
+#if WINDOWS_PHONE_APP
         private async Task InitBrowseWpToWin()
         {
             var t = new Task(() =>
@@ -400,10 +400,9 @@ namespace KillerrinStudiosToolkit
                 PeerFinder.AlternateIdentities.Remove("Bluetooth:SDP");
             }
         }
-#endif
     
-#if NETFX_CORE
-    
+#elif NETFX_CORE
+
         // Code in this part largely based on 
         // http://www.silverlightshow.net/items/Windows-8.1-Play-with-Bluetooth-Rfcomm.aspx
     

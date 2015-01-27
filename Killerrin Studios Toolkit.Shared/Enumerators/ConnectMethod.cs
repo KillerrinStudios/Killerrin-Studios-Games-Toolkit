@@ -7,8 +7,10 @@ namespace KillerrinStudiosToolkit.Enumerators
     public enum ConnectMethod
     {
         None,
+
+        // Bluetooth and Proximity protocols
         Tap,
         Browse,
-        Other
+        Other,
     }
 }
