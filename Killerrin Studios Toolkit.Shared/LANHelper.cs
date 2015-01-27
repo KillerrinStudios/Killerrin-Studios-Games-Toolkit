@@ -159,15 +159,19 @@ namespace KillerrinStudiosToolkit
 
         void OnUDPMessageReceived(DatagramSocket sender, DatagramSocketMessageReceivedEventArgs args)
         {
-            var reader = args.GetDataReader();
-            var count = reader.UnconsumedBufferLength;
-            var data = reader.ReadString(count);
-
-            if (UDPMessageRecieved != null)
+            try
             {
-                var outputArgs = new ReceivedMessageEventArgs(data, new NetworkConnectionEndpoint(args.RemoteAddress, args.RemotePort));
-                UDPMessageRecieved(this, outputArgs);
+                var reader = args.GetDataReader();
+                var count = reader.UnconsumedBufferLength;
+                var data = reader.ReadString(count);
+
+                if (UDPMessageRecieved != null)
+                {
+                    var outputArgs = new ReceivedMessageEventArgs(data, new NetworkConnectionEndpoint(args.RemoteAddress, args.RemotePort));
+                    UDPMessageRecieved(this, outputArgs);
+                }
             }
+            catch (Exception ex) { Debug.WriteLine(DebugTools.PrintOutException("OnUDPMessageRecieved", ex)); }
         }
         #endregion
 

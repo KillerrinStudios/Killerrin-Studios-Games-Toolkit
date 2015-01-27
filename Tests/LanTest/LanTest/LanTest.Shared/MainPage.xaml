@@ -1,0 +1,37 @@
+﻿<Page
+    x:Class="LanTest.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:LanTest"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="3*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        
+        <StackPanel Grid.Row="1" Grid.Column="1"
+                    Orientation="Vertical" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            
+            <Button x:Name="initButton" Content="Init" Tapped="initButton_Tapped"/>
+
+            <TextBox x:Name="ipAddressPortTextBox" Text="localhost:11321" PlaceholderText="IPAddress:port"/>
+            <Button x:Name="connectButton" Content="Connect" Tapped="connectButton_Tapped"/>            
+            
+            <TextBlock x:Name="chatTextBlock" Margin="0,25,0,0" Text="noneyet"/>
+            <TextBox x:Name="chatTextBox" PlaceholderText="Type Here"/>
+            <Button x:Name="sendButton" Content="Send" Tapped="sendButton_Tapped"/>
+            
+            <Button x:Name="resetButton" Content="Reset" Margin="0,25,0,0" Tapped="resetButton_Tapped"/>
+        </StackPanel>
+    </Grid>
+</Page>
