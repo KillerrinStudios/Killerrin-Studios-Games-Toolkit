@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="LanTest.MainPage"
+    x:Class="LanTest.UDPTest"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:LanTest"
@@ -18,12 +18,20 @@
             <RowDefinition Height="3*" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        
-        <StackPanel Grid.Row="1" Grid.Column="1"
-                    Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Stretch">
 
-            <Button x:Name="udpTestButton" HorizontalAlignment="Stretch" Content="UDP Test" Tapped="udpTestButton_Tapped"/>
-            <Button x:Name="tcpTestButton" HorizontalAlignment="Stretch" Content="TCP Test" Tapped="tcpTestButton_Tapped"/>
+        <StackPanel Grid.Row="1" Grid.Column="1"
+                    Orientation="Vertical" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+
+            <Button x:Name="initButton" Content="Init" Tapped="initButton_Tapped"/>
+
+            <TextBox x:Name="ipAddressPortTextBox" Text="localhost:11321" PlaceholderText="IPAddress:port"/>
+            <Button x:Name="connectButton" Content="Connect" Tapped="connectButton_Tapped"/>
+
+            <TextBlock x:Name="chatTextBlock" Margin="0,25,0,0" Text="noneyet"/>
+            <TextBox x:Name="chatTextBox" PlaceholderText="Type Here"/>
+            <Button x:Name="sendButton" Content="Send" Tapped="sendButton_Tapped"/>
+
+            <Button x:Name="resetButton" Content="Reset" Margin="0,25,0,0" Tapped="resetButton_Tapped"/>
         </StackPanel>
     </Grid>
 </Page>

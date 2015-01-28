@@ -31,6 +31,7 @@ namespace KillerrinStudiosToolkit
         }
 
         #region TCP
+        public event ReceivedMessageEventHandler TCPMessageRecieved;
         public NetworkConnectionEndpoint TCPNetworkConnectionEndpoint { get; protected set; }
         
         public bool IsTCPSetup { get; protected set; }
@@ -74,9 +75,22 @@ namespace KillerrinStudiosToolkit
             IsTCPSetup = false;
             IsTCPConnected = false;
 
+            // Dispose of potentially used assets
+            if (m_tcpDataReader != null)
+                m_tcpDataReader.Dispose();
+
+            if (m_tcpDataWriter != null)
+                m_tcpDataWriter.Dispose();
+
+            if (m_streamSocket != null)
+                m_streamSocket.Dispose();
+
+            // Set them to null now
             m_streamSocket = null;
             m_tcpDataReader = null;
             m_tcpDataWriter = null;
+
+            Debug.WriteLine("Resetting TCP");
         }
 
         public void ResetUDP()
@@ -86,8 +100,18 @@ namespace KillerrinStudiosToolkit
             IsUDPSetup = false;
             IsUDPConnected = false;
 
+            // Dispose of potentially used assets
+            if (m_udpDataWriter != null)
+                m_udpDataWriter.Dispose();
+
+            if (m_datagramSocket != null)
+                m_datagramSocket.Dispose();
+
+            // Set them to null for reuse
             m_datagramSocket = null;
             m_udpDataWriter = null;
+
+            Debug.WriteLine("Resetting UDP");
         }
         #endregion
 
@@ -99,17 +123,22 @@ namespace KillerrinStudiosToolkit
             m_streamSocket = new StreamSocket();
 
             IsTCPSetup = true;
+            Debug.WriteLine("UDP Initialized");
         }
 
         public async void ConnectTCP(NetworkConnectionEndpoint remoteNetworkConnectionEndpoint)
         {
             if (!IsTCPSetup) InitTCP();
+            if (IsTCPConnected) { ResetTCP(); InitTCP(); }
 
             try
             {
 
+                Debug.WriteLine("UDP Connected: " + UDPNetworkConnectionEndpoint.ToString());
                 TCPNetworkConnectionEndpoint = remoteNetworkConnectionEndpoint;
                 IsTCPConnected = true;
+
+                Debug.WriteLine("UDP Connected: " + UDPNetworkConnectionEndpoint.ToString());
             }
             catch (Exception) { Debug.WriteLine("Error connecting to TDP Endpoint"); }
         }
@@ -120,6 +149,8 @@ namespace KillerrinStudiosToolkit
 
             m_tcpDataWriter.WriteString(message);
             await m_tcpDataWriter.StoreAsync();
+
+            Debug.WriteLine("TCPMessage Sent: " + message);
         }
         #endregion
 
@@ -132,19 +163,30 @@ namespace KillerrinStudiosToolkit
             m_datagramSocket.MessageReceived += OnUDPMessageReceived;
 
             IsUDPSetup = true;
+            Debug.WriteLine("UDP Initialized");
         }
 
         public async void ConnectUDP(NetworkConnectionEndpoint remoteNetworkConnectionEndpoint)
         {
             if (!IsUDPSetup) InitUDP();
+            if (IsUDPConnected) { ResetUDP(); InitUDP(); }
 
             try
             {
+                Debug.WriteLine("Binding UDPPort");
+                await m_datagramSocket.BindServiceNameAsync(remoteNetworkConnectionEndpoint.Port);
+
+                Debug.WriteLine("Connecting UDPSocket");
                 await m_datagramSocket.ConnectAsync(remoteNetworkConnectionEndpoint.HostName, remoteNetworkConnectionEndpoint.Port);
+
+                Debug.WriteLine("Creating UDPDataWriter");
                 m_udpDataWriter = new DataWriter(m_datagramSocket.OutputStream);
 
+                Debug.WriteLine("Completed UDP");
                 UDPNetworkConnectionEndpoint = remoteNetworkConnectionEndpoint;
                 IsUDPConnected = true;
+
+                Debug.WriteLine("UDP Connected: " + UDPNetworkConnectionEndpoint.ToString());
             }
             catch (Exception) { Debug.WriteLine("Error connecting to UDP Endpoint"); }
         }
@@ -153,8 +195,14 @@ namespace KillerrinStudiosToolkit
         {
             if (!IsUDPConnected) return;
 
-            m_udpDataWriter.WriteString(message);
-            await m_udpDataWriter.StoreAsync();
+            try
+            {
+                m_udpDataWriter.WriteString(message);
+                await m_udpDataWriter.StoreAsync();
+
+                Debug.WriteLine("UDPMessage Sent: " + message);
+            }
+            catch (Exception ex) { Debug.WriteLine(DebugTools.PrintOutException("SendUDPMessage", ex)); }
         }
 
         void OnUDPMessageReceived(DatagramSocket sender, DatagramSocketMessageReceivedEventArgs args)
@@ -163,7 +211,9 @@ namespace KillerrinStudiosToolkit
             {
                 var reader = args.GetDataReader();
                 var count = reader.UnconsumedBufferLength;
+                
                 var data = reader.ReadString(count);
+                Debug.WriteLine("UDPMessage Recieved: " + data);
 
                 if (UDPMessageRecieved != null)
                 {
