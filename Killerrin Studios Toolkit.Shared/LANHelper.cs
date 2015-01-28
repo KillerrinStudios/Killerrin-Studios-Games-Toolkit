@@ -20,15 +20,10 @@ namespace KillerrinStudiosToolkit
         public static bool IsConnectedToInternet() { return System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable(); }
 
         #region Fields/Properties
-        HostType m_hostType;
-
         /// <summary>
         /// Sets the mode the LANHelper API will operate under
         /// </summary>
-        public HostType HostType {
-            get { return m_hostType; }
-            set { m_hostType = value; }
-        }
+        public HostType HostType { get; set; }
 
         /// <summary>
         /// Sets GUID the LANHelper API will search for
@@ -47,6 +42,8 @@ namespace KillerrinStudiosToolkit
         public object TCPLock = new object();
 
         private StreamSocket m_streamSocket;
+        private StreamSocketListener m_streamSocketListener;
+
         private DataReader m_tcpDataReader;
         private DataWriter m_tcpDataWriter;
         #endregion
@@ -66,10 +63,12 @@ namespace KillerrinStudiosToolkit
         #endregion
         #endregion
 
-        public LANHelper(Guid appGUID)
+        public LANHelper(Guid appGUID, HostType hostType = HostType.Client)
         {
             EnforceGUIDMatch = true;
             AppGUID = appGUID;
+
+            HostType = hostType;
 
             Reset();
         }
@@ -91,6 +90,9 @@ namespace KillerrinStudiosToolkit
             IsTCPConnected = false;
 
             // Dispose of potentially used assets
+            if (m_streamSocketListener != null)
+                m_streamSocketListener.Dispose();
+            
             if (m_tcpDataReader != null)
                 m_tcpDataReader.Dispose();
 
@@ -101,6 +103,7 @@ namespace KillerrinStudiosToolkit
                 m_streamSocket.Dispose();
 
             // Set them to null now
+            m_streamSocketListener = null;
             m_streamSocket = null;
             m_tcpDataReader = null;
             m_tcpDataWriter = null;
@@ -138,9 +141,51 @@ namespace KillerrinStudiosToolkit
 
             m_streamSocket = new StreamSocket();
 
+            m_streamSocketListener = new StreamSocketListener();
+            m_streamSocketListener.ConnectionReceived += m_streamSocketListener_ConnectionReceived;
+
             IsTCPSetup = true;
             Debug.WriteLine("TCP Initialized");
         }
+
+        #region TCP Server
+        public async void StartTCPServer(NetworkConnectionEndpoint remoteNetworkConnectionEndpoint)
+        {
+            if (!IsTCPSetup) InitTCP();
+            if (IsTCPConnected) { ResetTCP(); InitTCP(); }
+
+            try
+            {
+                Debug.WriteLine("Binding TCP Port");
+                await m_streamSocketListener.BindServiceNameAsync(remoteNetworkConnectionEndpoint.Port);
+
+                TCPNetworkConnectionEndpoint = remoteNetworkConnectionEndpoint;
+                Debug.WriteLine("TCP Connected: " + TCPNetworkConnectionEndpoint.ToString());
+            }
+            catch (Exception ex) { Debug.WriteLine(DebugTools.PrintOutException("StartTCPServer", ex)); }
+        }
+
+        private async void m_streamSocketListener_ConnectionReceived(StreamSocketListener sender, StreamSocketListenerConnectionReceivedEventArgs args)
+        {
+            Debug.WriteLine("TCP Connection Recieved");
+            
+            try
+            {
+                // Get rid of the previous socket
+                Debug.WriteLine("Disposing previous TCP socket");
+                m_streamSocket.Dispose();
+                m_streamSocket = null;
+
+                // Set the new socket
+                Debug.WriteLine("Assigning new TCP socket");
+                m_streamSocket = args.Socket;
+
+                Debug.WriteLine("Beginning Connection");
+                await DoConnectTCP();
+            }
+            catch (Exception ex) { Debug.WriteLine(DebugTools.PrintOutException("m_streamSocketListener_ConnectionReceived", ex)); }
+        }
+        #endregion
 
         public async void ConnectTCP(NetworkConnectionEndpoint remoteNetworkConnectionEndpoint)
         {
@@ -152,41 +197,33 @@ namespace KillerrinStudiosToolkit
                 Debug.WriteLine("Connecting TCPSocket");
                 await m_streamSocket.ConnectAsync(remoteNetworkConnectionEndpoint.HostName, remoteNetworkConnectionEndpoint.Port);
 
+                TCPNetworkConnectionEndpoint = remoteNetworkConnectionEndpoint;
+                Debug.WriteLine("TCP Connected: " + TCPNetworkConnectionEndpoint.ToString());
+
+                await DoConnectTCP();
+            }
+            catch (Exception ex) { Debug.WriteLine(DebugTools.PrintOutException("ConnectTCP", ex)); }
+
+
+        }
+
+        private async Task DoConnectTCP()
+        {
+            try
+            {
                 Debug.WriteLine("Creating TCPDataWriter");
                 m_tcpDataWriter = new DataWriter(m_streamSocket.OutputStream);
 
                 Debug.WriteLine("Creating TCPDataReader");
                 m_tcpDataReader = new DataReader(m_streamSocket.InputStream);
 
-                Debug.WriteLine("Completed TCP");
-                TCPNetworkConnectionEndpoint = remoteNetworkConnectionEndpoint;
                 IsTCPConnected = true;
-
-                Debug.WriteLine("TCP Connected: " + TCPNetworkConnectionEndpoint.ToString());
             }
-            catch (Exception) { Debug.WriteLine("Error connecting to TCP Endpoint"); }
+            catch (Exception ex) { Debug.WriteLine(DebugTools.PrintOutException("ConnectTCP", ex)); }
 
             // Begin the listen loop
             if (IsTCPConnected)
                 BeginListeningTCP();
-        }
-
-        private async void BeginListeningTCP()
-        {
-            IsTCPListening = true;
-
-            while (IsTCPListening)
-            {
-                var data = await GetTCPMessage();
-                if (IsTCPListening)
-                {
-                    if (data != null && TCPMessageRecieved != null)
-                    {
-                        var outputArgs = new ReceivedMessageEventArgs(data, TCPNetworkConnectionEndpoint);
-                        TCPMessageRecieved(this, outputArgs);
-                    }
-                }
-            }
         }
 
         public async void SendTCPMessage(string message)
@@ -202,6 +239,24 @@ namespace KillerrinStudiosToolkit
                 Debug.WriteLine("TCPMessage Sent: " + message);
             }
             catch (Exception ex) { Debug.WriteLine(DebugTools.PrintOutException("SendTCPMessage", ex)); }
+        }
+
+        private async Task BeginListeningTCP()
+        {
+            IsTCPListening = true;
+
+            while (IsTCPListening)
+            {
+                var data = await GetTCPMessage();
+                if (IsTCPListening)
+                {
+                    if (data != null && TCPMessageRecieved != null)
+                    {
+                        var outputArgs = new ReceivedMessageEventArgs(data, TCPNetworkConnectionEndpoint);
+                        TCPMessageRecieved(this, outputArgs);
+                    }
+                }
+            }
         }
 
         private async Task<string> GetTCPMessage()
@@ -259,7 +314,7 @@ namespace KillerrinStudiosToolkit
 
                 Debug.WriteLine("UDP Connected: " + UDPNetworkConnectionEndpoint.ToString());
             }
-            catch (Exception) { Debug.WriteLine("Error connecting to UDP Endpoint"); }
+            catch (Exception ex) { Debug.WriteLine(DebugTools.PrintOutException("ConnectUDP", ex)); }
         }
 
         public async void SendUDPMessage(string message)

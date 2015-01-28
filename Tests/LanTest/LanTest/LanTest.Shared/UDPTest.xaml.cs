@@ -44,8 +44,6 @@ namespace LanTest
         void lanHelper_UDPMessageRecieved(object sender, ReceivedMessageEventArgs e)
         {
             Debug.WriteLine("InAppDataEvent");
-            //chatTextBlock.Text = e.Message;
-            //Debug.WriteLine("Message Recieved: " + e.Message);
         }
 
         private void initButton_Tapped(object sender, TappedRoutedEventArgs e)

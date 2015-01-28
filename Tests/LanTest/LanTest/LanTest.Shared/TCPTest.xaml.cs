@@ -51,19 +51,33 @@ namespace LanTest
             lanHelper.InitTCP();
         }
 
+        private void GetAddressPort(string textToParse, out string ipAddress, out string port)
+        {
+            string[] textSplit = textToParse.Split(new char[] { ':' });
+            ipAddress = textSplit[0];
+            port = (textSplit.Length >= 2 ? textSplit[1] : null);
+        }
+
         private void connectButton_Tapped(object sender, TappedRoutedEventArgs e)
         {
             if (string.IsNullOrEmpty(ipAddressPortTextBox.Text)) return;
             string ipAddress = null;
             string port = null;
-
-            string[] textSplit = ipAddressPortTextBox.Text.Split(new char[] { ':' });
-            ipAddress = textSplit[0];
-            port = (textSplit.Length >= 2 ? textSplit[1] : null);
+            GetAddressPort(ipAddressPortTextBox.Text, out ipAddress, out port);
 
             NetworkConnectionEndpoint endpoint = new NetworkConnectionEndpoint(ipAddress, (!string.IsNullOrEmpty(port) ? port : "11321"));
-
             lanHelper.ConnectTCP(endpoint);
+        }
+
+        private void startServerButton_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(ipAddressPortTextBox.Text)) return;
+            string ipAddress = null;
+            string port = null;
+            GetAddressPort(ipAddressPortTextBox.Text, out ipAddress, out port);
+
+            NetworkConnectionEndpoint endpoint = new NetworkConnectionEndpoint(ipAddress, (!string.IsNullOrEmpty(port) ? port : "11321"));
+            lanHelper.StartTCPServer(endpoint);
         }
 
         private void sendButton_Tapped(object sender, TappedRoutedEventArgs e)

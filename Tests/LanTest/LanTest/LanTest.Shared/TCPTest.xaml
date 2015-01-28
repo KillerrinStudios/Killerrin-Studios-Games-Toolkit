@@ -9,9 +9,9 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="3*" />
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="0.5*" />
+            <ColumnDefinition Width="5*" />
+            <ColumnDefinition Width="0.5*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -25,7 +25,11 @@
             <Button x:Name="initButton" Content="Init" Tapped="initButton_Tapped"/>
 
             <TextBox x:Name="ipAddressPortTextBox" Text="localhost:11321" PlaceholderText="IPAddress:port"/>
-            <Button x:Name="connectButton" Content="Connect" Tapped="connectButton_Tapped"/>
+            
+            <StackPanel Orientation="Horizontal">
+                <Button x:Name="connectButton" Content="Connect" Tapped="connectButton_Tapped"/>
+                <Button x:Name="startServerButton" Content="Start Server" Tapped="startServerButton_Tapped"/>
+            </StackPanel>
 
             <TextBlock x:Name="chatTextBlock" Margin="0,25,0,0" Text="noneyet"/>
             <TextBox x:Name="chatTextBox" PlaceholderText="Type Here"/>
