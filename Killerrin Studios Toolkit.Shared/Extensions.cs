@@ -21,6 +21,11 @@ namespace KillerrinStudiosToolkit
             return text;
         }
 
+        public static string PrintException(this Exception ex, string headerMessage = "")
+        {
+            return DebugTools.PrintOutException(headerMessage, ex);
+        }
+
         public static string AddSpacesToSentence(this string text, bool preserveAcronyms = true)
         {
             if (string.IsNullOrWhiteSpace(text))

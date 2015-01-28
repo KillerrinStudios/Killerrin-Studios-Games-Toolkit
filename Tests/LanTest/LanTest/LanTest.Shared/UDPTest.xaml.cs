@@ -35,7 +35,7 @@ namespace LanTest
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            lanHelper = new LANHelper();
+            lanHelper = new LANHelper(Consts.APPGuid);
             lanHelper.UDPMessageRecieved += lanHelper_UDPMessageRecieved;
 
             base.OnNavigatedTo(e);

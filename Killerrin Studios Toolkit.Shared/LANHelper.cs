@@ -30,13 +30,22 @@ namespace KillerrinStudiosToolkit
             set { m_hostType = value; }
         }
 
+        /// <summary>
+        /// Sets GUID the LANHelper API will search for
+        /// </summary>
+        public Guid AppGUID { get; set; }
+        public bool EnforceGUIDMatch { get; set; }
+
         #region TCP
         public event ReceivedMessageEventHandler TCPMessageRecieved;
         public NetworkConnectionEndpoint TCPNetworkConnectionEndpoint { get; protected set; }
         
         public bool IsTCPSetup { get; protected set; }
         public bool IsTCPConnected { get; protected set; }
-        
+        public bool IsTCPListening { get; set; }
+
+        public object TCPLock = new object();
+
         private StreamSocket m_streamSocket;
         private DataReader m_tcpDataReader;
         private DataWriter m_tcpDataWriter;
@@ -50,13 +59,18 @@ namespace KillerrinStudiosToolkit
         public bool IsUDPSetup { get; protected set; }
         public bool IsUDPConnected { get; protected set; }
 
+        public object UDPLock = new object();
+
         private DatagramSocket m_datagramSocket;
         private DataWriter m_udpDataWriter;
         #endregion
         #endregion
 
-        public LANHelper()
+        public LANHelper(Guid appGUID)
         {
+            EnforceGUIDMatch = true;
+            AppGUID = appGUID;
+
             Reset();
         }
 
@@ -64,6 +78,7 @@ namespace KillerrinStudiosToolkit
         public void Reset()
         {
             HostType = HostType.Client;
+
             ResetTCP();
             ResetUDP();
         }
@@ -119,11 +134,12 @@ namespace KillerrinStudiosToolkit
         public void InitTCP()
         {
             IsTCPConnected = false;
+            IsTCPListening = false;
 
             m_streamSocket = new StreamSocket();
 
             IsTCPSetup = true;
-            Debug.WriteLine("UDP Initialized");
+            Debug.WriteLine("TCP Initialized");
         }
 
         public async void ConnectTCP(NetworkConnectionEndpoint remoteNetworkConnectionEndpoint)
@@ -133,24 +149,79 @@ namespace KillerrinStudiosToolkit
 
             try
             {
+                Debug.WriteLine("Connecting TCPSocket");
+                await m_streamSocket.ConnectAsync(remoteNetworkConnectionEndpoint.HostName, remoteNetworkConnectionEndpoint.Port);
 
-                Debug.WriteLine("UDP Connected: " + UDPNetworkConnectionEndpoint.ToString());
+                Debug.WriteLine("Creating TCPDataWriter");
+                m_tcpDataWriter = new DataWriter(m_streamSocket.OutputStream);
+
+                Debug.WriteLine("Creating TCPDataReader");
+                m_tcpDataReader = new DataReader(m_streamSocket.InputStream);
+
+                Debug.WriteLine("Completed TCP");
                 TCPNetworkConnectionEndpoint = remoteNetworkConnectionEndpoint;
                 IsTCPConnected = true;
 
-                Debug.WriteLine("UDP Connected: " + UDPNetworkConnectionEndpoint.ToString());
+                Debug.WriteLine("TCP Connected: " + TCPNetworkConnectionEndpoint.ToString());
             }
-            catch (Exception) { Debug.WriteLine("Error connecting to TDP Endpoint"); }
+            catch (Exception) { Debug.WriteLine("Error connecting to TCP Endpoint"); }
+
+            // Begin the listen loop
+            if (IsTCPConnected)
+                BeginListeningTCP();
+        }
+
+        private async void BeginListeningTCP()
+        {
+            IsTCPListening = true;
+
+            while (IsTCPListening)
+            {
+                var data = await GetTCPMessage();
+                if (IsTCPListening)
+                {
+                    if (data != null && TCPMessageRecieved != null)
+                    {
+                        var outputArgs = new ReceivedMessageEventArgs(data, TCPNetworkConnectionEndpoint);
+                        TCPMessageRecieved(this, outputArgs);
+                    }
+                }
+            }
         }
 
         public async void SendTCPMessage(string message)
         {
             if (!IsTCPConnected) return;
 
-            m_tcpDataWriter.WriteString(message);
-            await m_tcpDataWriter.StoreAsync();
+            try
+            {
+                m_tcpDataWriter.WriteInt32(message.Length);
+                m_tcpDataWriter.WriteString(message);
+                await m_tcpDataWriter.StoreAsync();
 
-            Debug.WriteLine("TCPMessage Sent: " + message);
+                Debug.WriteLine("TCPMessage Sent: " + message);
+            }
+            catch (Exception ex) { Debug.WriteLine(DebugTools.PrintOutException("SendTCPMessage", ex)); }
+        }
+
+        private async Task<string> GetTCPMessage()
+        {
+            try
+            {
+                await m_tcpDataReader.LoadAsync(4);
+                var messageLen = (uint)m_tcpDataReader.ReadInt32();
+
+                await m_tcpDataReader.LoadAsync(messageLen);
+                var message = m_tcpDataReader.ReadString(messageLen);
+                Debug.WriteLine("Message received: " + message);
+
+                return message;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(DebugTools.PrintOutException("GetTCPMessage", ex));
+            }
+            return null;
         }
         #endregion
 
@@ -197,6 +268,7 @@ namespace KillerrinStudiosToolkit
 
             try
             {
+                m_udpDataWriter.WriteGuid(AppGUID);
                 m_udpDataWriter.WriteString(message);
                 await m_udpDataWriter.StoreAsync();
 
@@ -210,15 +282,21 @@ namespace KillerrinStudiosToolkit
             try
             {
                 var reader = args.GetDataReader();
-                var count = reader.UnconsumedBufferLength;
-                
-                var data = reader.ReadString(count);
-                Debug.WriteLine("UDPMessage Recieved: " + data);
 
-                if (UDPMessageRecieved != null)
+                var guid = reader.ReadGuid();
+
+                var count = reader.UnconsumedBufferLength;
+                var data = reader.ReadString(count);
+
+                if (guid == AppGUID || !EnforceGUIDMatch)
                 {
-                    var outputArgs = new ReceivedMessageEventArgs(data, new NetworkConnectionEndpoint(args.RemoteAddress, args.RemotePort));
-                    UDPMessageRecieved(this, outputArgs);
+                    Debug.WriteLine("UDPMessage Recieved: " + data);
+
+                    if (UDPMessageRecieved != null)
+                    {
+                        var outputArgs = new ReceivedMessageEventArgs(data, new NetworkConnectionEndpoint(args.RemoteAddress, args.RemotePort));
+                        UDPMessageRecieved(this, outputArgs);
+                    }
                 }
             }
             catch (Exception ex) { Debug.WriteLine(DebugTools.PrintOutException("OnUDPMessageRecieved", ex)); }
