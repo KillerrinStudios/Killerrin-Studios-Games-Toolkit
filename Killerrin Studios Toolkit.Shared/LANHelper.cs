@@ -31,6 +31,8 @@ namespace KillerrinStudiosToolkit
         public Guid AppGUID { get; set; }
         public bool EnforceGUIDMatch { get; set; }
 
+        public string ConnectionCloseMessage { get; set; }
+
         #region TCP
         public event ReceivedMessageEventHandler TCPMessageRecieved;
         public NetworkConnectionEndpoint TCPNetworkConnectionEndpoint { get; protected set; }
@@ -68,6 +70,8 @@ namespace KillerrinStudiosToolkit
             EnforceGUIDMatch = true;
             AppGUID = appGUID;
 
+            ConnectionCloseMessage = "API Close The Connection";
+
             HostType = hostType;
 
             Reset();
@@ -88,6 +92,7 @@ namespace KillerrinStudiosToolkit
 
             IsTCPSetup = false;
             IsTCPConnected = false;
+            IsTCPListening = false;
 
             // Dispose of potentially used assets
             if (m_streamSocketListener != null)
@@ -300,6 +305,7 @@ namespace KillerrinStudiosToolkit
                 BeginListeningTCP();
         }
 
+        public async void SendTCPCloseMessage() { SendTCPMessage(ConnectionCloseMessage); }
         public async void SendTCPMessage(string message)
         {
             if (!IsTCPConnected) return;
@@ -315,21 +321,40 @@ namespace KillerrinStudiosToolkit
             catch (Exception ex) { Debug.WriteLine(DebugTools.PrintOutException("SendTCPMessage", ex)); }
         }
 
-        private async Task BeginListeningTCP()
+        public async Task BeginListeningTCP()
         {
             IsTCPListening = true;
 
             while (IsTCPListening)
             {
-                var data = await GetTCPMessage();
-                if (IsTCPListening)
+                try
                 {
-                    if (data != null && TCPMessageRecieved != null)
+                    var data = await GetTCPMessage();
+
+                    // Check for the Close Message
+                    if (data == ConnectionCloseMessage)
                     {
-                        var outputArgs = new ReceivedMessageEventArgs(data, TCPNetworkConnectionEndpoint);
-                        TCPMessageRecieved(this, outputArgs);
+                        if (TCPMessageRecieved != null)
+                        {
+                            var outputArgs = new ReceivedMessageEventArgs(data, TCPNetworkConnectionEndpoint);
+                            TCPMessageRecieved(this, outputArgs);
+                        }
+
+                        IsTCPListening = false;
+                        ResetTCP();
+                    }
+
+                    // Do as normal
+                    if (IsTCPListening)
+                    {
+                        if (data != null && TCPMessageRecieved != null)
+                        {
+                            var outputArgs = new ReceivedMessageEventArgs(data, TCPNetworkConnectionEndpoint);
+                            TCPMessageRecieved(this, outputArgs);
+                        }
                     }
                 }
+                catch (Exception) { IsTCPListening = false; }
             }
         }
 
@@ -391,6 +416,7 @@ namespace KillerrinStudiosToolkit
             catch (Exception ex) { Debug.WriteLine(DebugTools.PrintOutException("ConnectUDP", ex)); }
         }
 
+        public async void SendUDPCloseMessage() { SendUDPMessage(ConnectionCloseMessage); }
         public async void SendUDPMessage(string message)
         {
             if (!IsUDPConnected) return;
@@ -426,6 +452,8 @@ namespace KillerrinStudiosToolkit
                         var outputArgs = new ReceivedMessageEventArgs(data, new NetworkConnectionEndpoint(args.RemoteAddress, args.RemotePort));
                         UDPMessageRecieved(this, outputArgs);
                     }
+
+                    if (data == ConnectionCloseMessage) { ResetUDP(); }
                 }
             }
             catch (Exception ex) { Debug.WriteLine(DebugTools.PrintOutException("OnUDPMessageRecieved", ex)); }

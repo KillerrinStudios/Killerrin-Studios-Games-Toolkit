@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.ApplicationModel.Core;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Networking;
@@ -36,27 +37,41 @@ namespace LanTest
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+#if WINDOWS_PHONE_APP
+            // Subscribe to the back button event as to not close the page
+            Windows.Phone.UI.Input.HardwareButtons.BackPressed += HardwareButtons_BackPressed;
+#endif
+
             lanHelper = new LANHelper(Consts.APPGuid);
             lanHelper.UDPMessageRecieved += lanHelper_UDPMessageRecieved;
 
-            try
-            {
-                var ipAddresses = LANHelper.GetCurrentIpAddressesAsString();
-                Debug.WriteLine("My IP Addresses");
-                foreach (var i in ipAddresses) Debug.WriteLine(i);
-            }
-            catch (Exception) { }
-
             // Set the current IP Address
             string currentIP = LANHelper.CurrentIPAddressAsString();
-            myIPAddresses.Text = "MyIP: " + currentIP;
+            myIPAddresses.Text = "My IP: " + currentIP;
 
             base.OnNavigatedTo(e);
         }
 
+#if WINDOWS_PHONE_APP
+        private void HardwareButtons_BackPressed(object sender, Windows.Phone.UI.Input.BackPressedEventArgs e)
+        {
+            resetButton_Tapped(null, null);
+            e.Handled = true;
+            
+            // Describe from event
+            Windows.Phone.UI.Input.HardwareButtons.BackPressed -= HardwareButtons_BackPressed;
+
+            Frame.GoBack();
+        }
+#endif
+
         void lanHelper_UDPMessageRecieved(object sender, ReceivedMessageEventArgs e)
         {
             Debug.WriteLine("InAppDataEvent");
+            CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            {
+                chatTextBlock.Text = e.Message;
+            });
         }
 
         private void initButton_Tapped(object sender, TappedRoutedEventArgs e)
@@ -67,16 +82,8 @@ namespace LanTest
         private void connectButton_Tapped(object sender, TappedRoutedEventArgs e)
         {
             if (string.IsNullOrEmpty(ipAddressPortTextBox.Text)) return;
-            string ipAddress = null;
-            string port = null;
-            
-            string[] textSplit = ipAddressPortTextBox.Text.Split(new char[] { ':' });
-            ipAddress = textSplit[0];
-            port = (textSplit.Length >= 2 ? textSplit[1] : null);
 
-            NetworkConnectionEndpoint endpoint = new NetworkConnectionEndpoint(ipAddress, (!string.IsNullOrEmpty(port) ? port : "11321"));
-
-            lanHelper.ConnectUDP(endpoint);
+            lanHelper.ConnectUDP(NetworkConnectionEndpoint.Parse(ipAddressPortTextBox.Text));
         }
 
         private void sendButton_Tapped(object sender, TappedRoutedEventArgs e)
@@ -88,6 +95,7 @@ namespace LanTest
 
         private void resetButton_Tapped(object sender, TappedRoutedEventArgs e)
         {
+            lanHelper.SendUDPCloseMessage();
             lanHelper.ResetUDP();
         }
     }
