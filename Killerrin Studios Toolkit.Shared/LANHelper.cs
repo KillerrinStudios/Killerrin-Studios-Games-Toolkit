@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using System.Net;
+using System.Linq;
 using Windows.Networking;
 using Windows.Networking.Sockets;
 using Windows.Storage.Streams;
@@ -12,13 +13,12 @@ using System.Diagnostics;
 using KillerrinStudiosToolkit.Datastructures;
 using KillerrinStudiosToolkit.Enumerators;
 using KillerrinStudiosToolkit.Events;
+using Windows.Networking.Connectivity;
 
 namespace KillerrinStudiosToolkit
 {
     public class LANHelper
     {
-        public static bool IsConnectedToInternet() { return System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable(); }
-
         #region Fields/Properties
         /// <summary>
         /// Sets the mode the LANHelper API will operate under
@@ -131,6 +131,80 @@ namespace KillerrinStudiosToolkit
 
             Debug.WriteLine("Resetting UDP");
         }
+        #endregion
+
+        #region Helper Methods
+        public static bool IsConnectedToInternet() { return System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable(); }
+
+        public static string CurrentIPAddressAsString() { return CurrentIPAddress().CanonicalName; }
+        public static HostName CurrentIPAddress()
+        {
+            var icp = NetworkInformation.GetInternetConnectionProfile();
+            
+            if (icp != null && icp.NetworkAdapter != null)
+            {
+                var hostname =
+                    NetworkInformation.GetHostNames()
+                        .SingleOrDefault(
+                            hn =>
+                            hn.IPInformation != null && hn.IPInformation.NetworkAdapter != null
+                            && hn.IPInformation.NetworkAdapter.NetworkAdapterId
+                            == icp.NetworkAdapter.NetworkAdapterId);
+
+                if (hostname != null)
+                {
+                    // the ip address
+                    return hostname;
+                }
+            }
+
+            return new HostName("localhost");
+        }
+
+        /// <summary>
+        /// Gets all the IP Addresses of this Device
+        /// </summary>
+        /// <returns>An IEnumerable containing HostNameConnectionProfilePairss</returns>
+        /// <exception cref="Exception">Throws an Exception if the user is connected to WiFi and Cellular</exception>
+        public static IEnumerable<HostNameConnectionProfilePair> GetCurrentIpAddresses()
+        {
+            try
+            {
+                var profiles = NetworkInformation.GetConnectionProfiles().ToList();
+
+                // the Internet connection profile doesn't seem to be in the above list
+                profiles.Add(NetworkInformation.GetInternetConnectionProfile());
+
+                IEnumerable<HostName> hostnames =
+                    NetworkInformation.GetHostNames().Where(h =>
+                        h.IPInformation != null &&
+                        h.IPInformation.NetworkAdapter != null).ToList();
+
+                return (from h in hostnames
+                        from p in profiles
+                        where h.IPInformation.NetworkAdapter.NetworkAdapterId ==
+                              p.NetworkAdapter.NetworkAdapterId
+                        select new HostNameConnectionProfilePair(h, p)).ToList();
+            }
+            catch (Exception ex) { throw ex; }
+        }
+
+
+        /// <summary>
+        /// Gets all the IP Addresses of this Device parsed into a string
+        /// </summary>
+        /// <returns>An IEnumerable containing HostNameConnectionProfilePairss</returns>
+        /// <exception cref="Exception">Throws an Exception if the user is connected to WiFi and Cellular</exception>
+        public static IEnumerable<string> GetCurrentIpAddressesAsString() {
+            try
+            {
+                return (from hcpp in GetCurrentIpAddresses()
+                        where !string.IsNullOrEmpty(hcpp.HostName.CanonicalName)
+                        select String.Format("{0}|{1}", hcpp.ConnectionProfile.ProfileName, hcpp.HostName.CanonicalName)).ToList();
+            }
+            catch (Exception ex) { throw ex; }
+        }
+
         #endregion
 
         #region TCP

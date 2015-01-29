@@ -9,6 +9,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Networking;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -27,7 +28,7 @@ namespace LanTest
     public sealed partial class UDPTest : Page
     {
         LANHelper lanHelper;
-        
+
         public UDPTest()
         {
             this.InitializeComponent();
@@ -37,6 +38,18 @@ namespace LanTest
         {
             lanHelper = new LANHelper(Consts.APPGuid);
             lanHelper.UDPMessageRecieved += lanHelper_UDPMessageRecieved;
+
+            try
+            {
+                var ipAddresses = LANHelper.GetCurrentIpAddressesAsString();
+                Debug.WriteLine("My IP Addresses");
+                foreach (var i in ipAddresses) Debug.WriteLine(i);
+            }
+            catch (Exception) { }
+
+            // Set the current IP Address
+            string currentIP = LANHelper.CurrentIPAddressAsString();
+            myIPAddresses.Text = "MyIP: " + currentIP;
 
             base.OnNavigatedTo(e);
         }
@@ -56,7 +69,7 @@ namespace LanTest
             if (string.IsNullOrEmpty(ipAddressPortTextBox.Text)) return;
             string ipAddress = null;
             string port = null;
-
+            
             string[] textSplit = ipAddressPortTextBox.Text.Split(new char[] { ':' });
             ipAddress = textSplit[0];
             port = (textSplit.Length >= 2 ? textSplit[1] : null);

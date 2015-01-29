@@ -9,6 +9,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Networking;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -37,6 +38,18 @@ namespace LanTest
         {
             lanHelper = new LANHelper(Consts.APPGuid);
             lanHelper.TCPMessageRecieved += lanHelper_TCPMessageRecieved;
+
+            try
+            {
+                var ipAddresses = LANHelper.GetCurrentIpAddresses();
+                Debug.WriteLine("My IP Addresses");
+                foreach (var i in ipAddresses) Debug.WriteLine(i);
+            }
+            catch (Exception) { }
+
+            // Set the current IP Address
+            string currentIP = LANHelper.CurrentIPAddressAsString();
+            myIPAddresses.Text = "MyIP: " + currentIP;
 
             base.OnNavigatedTo(e);
         }

@@ -16,6 +16,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Data Models\NameDescription.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data Models\NameImage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data Models\NameImageDescription.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Datastructures\DataPair.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Datastructures\HostNameConnectionProfilePair.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Datastructures\NetworkConnectionEndpoint.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DebugTools.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Enumerators\APIResponse.cs" />

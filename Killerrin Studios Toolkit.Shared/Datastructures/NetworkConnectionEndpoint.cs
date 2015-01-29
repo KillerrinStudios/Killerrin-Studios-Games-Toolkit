@@ -24,7 +24,7 @@ namespace KillerrinStudiosToolkit.Datastructures
 
         public override string ToString()
         {
-            return "IP: " + HostName.RawName + " | " + "Port: " + Port;
+            return "IP|" + HostName.RawName + ":" + Port;
         }
     }
 }

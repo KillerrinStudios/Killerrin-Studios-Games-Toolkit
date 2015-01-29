@@ -24,6 +24,7 @@
 
             <Button x:Name="initButton" Content="Init" Tapped="initButton_Tapped"/>
 
+            <TextBlock x:Name="myIPAddresses" Text="My IP: "/>
             <TextBox x:Name="ipAddressPortTextBox" Text="localhost:11321" PlaceholderText="IPAddress:port"/>
             <Button x:Name="connectButton" Content="Connect" Tapped="connectButton_Tapped"/>
 
