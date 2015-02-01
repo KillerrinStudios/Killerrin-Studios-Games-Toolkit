@@ -6,33 +6,29 @@ using System.Text;
 
 namespace KillerrinStudiosToolkit.Events
 {
-    public delegate void ReceivedMessageEventHandler(object sender, ReceivedMessageEventArgs e);
+    public delegate void OnConnectedEventHandler(object sender, OnConnectedEventArgs e);
 
-    public class ReceivedMessageEventArgs : System.ComponentModel.AsyncCompletedEventArgs
+    public class OnConnectedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
-        public string Message { get; private set; }
         public NetworkConnectionEndpoint? NetworkConnectionEndpoint { get; private set; }
         public NetworkType NetworkType { get; private set; }
 
-        public ReceivedMessageEventArgs()
+        public OnConnectedEventArgs()
             : base(new Exception(), false, null)
         {
-            Message = "";
             NetworkConnectionEndpoint = null;
         }
 
-        public ReceivedMessageEventArgs(string message, NetworkConnectionEndpoint? networkConnectionEndpoint, NetworkType networkType)
+        public OnConnectedEventArgs(NetworkConnectionEndpoint? networkConnectionEndpoint, NetworkType networkType)
             : base(new Exception(), false, null)
         {
-            Message = message;
             NetworkConnectionEndpoint = networkConnectionEndpoint;
             NetworkType = networkType;
         }
 
-        public ReceivedMessageEventArgs(string message, NetworkConnectionEndpoint? networkConnectionEndpoint, NetworkType networkType, Exception e, bool canceled, Object state)
+        public OnConnectedEventArgs(NetworkConnectionEndpoint? networkConnectionEndpoint, NetworkType networkType, Exception e, bool canceled, Object state)
             : base(e, canceled, state)
         {
-            Message = message;
             NetworkConnectionEndpoint = networkConnectionEndpoint;
             NetworkType = networkType;
         }

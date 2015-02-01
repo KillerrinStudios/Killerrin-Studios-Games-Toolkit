@@ -167,7 +167,7 @@ namespace KillerrinStudiosToolkit
                         {
                             if (message != null && MessageReceived != null)
                             {
-                                MessageReceived(this, new ReceivedMessageEventArgs(message, null));
+                                MessageReceived(this, new ReceivedMessageEventArgs(message, null, NetworkType.Bluetooth));
                             }
                         }
                     }

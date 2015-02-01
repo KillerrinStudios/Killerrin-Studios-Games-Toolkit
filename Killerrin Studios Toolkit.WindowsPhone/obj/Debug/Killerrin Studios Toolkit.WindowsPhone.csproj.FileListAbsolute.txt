@@ -78,3 +78,6 @@ C:\Users\Andrew\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Too
 C:\Users\Andrew\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit.WindowsPhone\obj\Debug\qualifiers.txt
 C:\Users\Andrew\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit.WindowsPhone\obj\Debug\qualifiers.txt.intermediate
 C:\Users\Andrew\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit.WindowsPhone\obj\Debug\MultipleQualifiersPerDimensionFound.txt
+C:\Users\Andrew\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit.WindowsPhone\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Andrew\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit.WindowsPhone\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Andrew\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit.WindowsPhone\obj\Debug\Killerrin Studios Toolkit.WindowsPhone.csprojResolveAssemblyReference.cache

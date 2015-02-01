@@ -19,6 +19,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Datastructures\DataPair.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Datastructures\HostNameConnectionProfilePair.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Datastructures\NetworkConnectionEndpoint.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Datastructures\Packet.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DebugTools.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Enumerators\APIResponse.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Enumerators\ClientOSType.cs" />
@@ -27,7 +28,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Enumerators\HostType.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Enumerators\NetworkConnectionState.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Enumerators\NetworkProtocol.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Enumerators\NetworkType.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Enumerators\StorageLocation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Events\OnConnectedEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Events\ReceivedMessageEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\SerializableByte.cs" />
@@ -35,6 +38,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\ISerializable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)KillerrinApplicationData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LANHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Managers\PacketIDManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SecondaryTileHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)StorageTools.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)XamlControlHelper.cs" />

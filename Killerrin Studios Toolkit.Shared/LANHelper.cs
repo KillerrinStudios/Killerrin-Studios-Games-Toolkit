@@ -35,6 +35,7 @@ namespace KillerrinStudiosToolkit
 
         #region TCP
         public event ReceivedMessageEventHandler TCPMessageRecieved;
+        public event OnConnectedEventHandler OnTCPConnected;
         public NetworkConnectionEndpoint TCPNetworkConnectionEndpoint { get; protected set; }
         
         public bool IsTCPSetup { get; protected set; }
@@ -302,7 +303,12 @@ namespace KillerrinStudiosToolkit
 
             // Begin the listen loop
             if (IsTCPConnected)
+            {
+                if (OnTCPConnected != null)
+                    OnTCPConnected(this, new OnConnectedEventArgs(TCPNetworkConnectionEndpoint, NetworkType.LAN));
+
                 BeginListeningTCP();
+            }
         }
 
         public async void SendTCPCloseMessage() { SendTCPMessage(ConnectionCloseMessage); }
@@ -336,7 +342,7 @@ namespace KillerrinStudiosToolkit
                     {
                         if (TCPMessageRecieved != null)
                         {
-                            var outputArgs = new ReceivedMessageEventArgs(data, TCPNetworkConnectionEndpoint);
+                            var outputArgs = new ReceivedMessageEventArgs(data, TCPNetworkConnectionEndpoint, NetworkType.LAN);
                             TCPMessageRecieved(this, outputArgs);
                         }
 
@@ -349,7 +355,7 @@ namespace KillerrinStudiosToolkit
                     {
                         if (data != null && TCPMessageRecieved != null)
                         {
-                            var outputArgs = new ReceivedMessageEventArgs(data, TCPNetworkConnectionEndpoint);
+                            var outputArgs = new ReceivedMessageEventArgs(data, TCPNetworkConnectionEndpoint, NetworkType.LAN);
                             TCPMessageRecieved(this, outputArgs);
                         }
                     }
@@ -449,7 +455,7 @@ namespace KillerrinStudiosToolkit
 
                     if (UDPMessageRecieved != null)
                     {
-                        var outputArgs = new ReceivedMessageEventArgs(data, new NetworkConnectionEndpoint(args.RemoteAddress, args.RemotePort));
+                        var outputArgs = new ReceivedMessageEventArgs(data, new NetworkConnectionEndpoint(args.RemoteAddress, args.RemotePort), NetworkType.LAN);
                         UDPMessageRecieved(this, outputArgs);
                     }
 
