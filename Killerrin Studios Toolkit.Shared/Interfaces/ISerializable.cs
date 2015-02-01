@@ -8,6 +8,6 @@ namespace KillerrinStudiosToolkit.Interfaces
     public interface ISerializable
     {
         byte[] Serialize();
-        object Deserialize();
+        object Deserialize(byte[] data);
     }
 }

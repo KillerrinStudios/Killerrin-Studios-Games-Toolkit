@@ -25,7 +25,7 @@ namespace KillerrinStudiosToolkit.Helpers
             return Data;
         }
 
-        object ISerializable.Deserialize() { return Deserialize(); }
+        object ISerializable.Deserialize(byte[] data) { return Deserialize(); }
         public object Deserialize()
         {
             return Data;

@@ -47,11 +47,13 @@ namespace KillerrinStudiosToolkit.Helpers
             return Encoding.UTF8.GetBytes(m_content);
         }
 
-        object ISerializable.Deserialize() { return Deserialize(); }
+        object ISerializable.Deserialize(byte[] data) { return Deserialize(); }
         public string Deserialize()
         {
+
             try {
                 string deserial = Encoding.UTF8.GetString(Data, 0, Data.Length);
+                //Data = data;
 
                 Debug.WriteLine("Content Deserialized");
                 return deserial;

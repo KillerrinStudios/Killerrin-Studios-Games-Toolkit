@@ -5,6 +5,8 @@ using System.Diagnostics;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using KillerrinStudiosToolkit.Managers;
+using KillerrinStudiosToolkit.Interfaces;
+using KillerrinStudiosToolkit.Helpers;
 
 namespace KillerrinStudiosToolkit.Datastructures
 {
@@ -19,6 +21,10 @@ namespace KillerrinStudiosToolkit.Datastructures
             PacketID = PacketIDManager.GetNewID();
             RequiresAck = requiresAck;
             Timestamp = DateTime.UtcNow;
+        }
+        public Packet(byte[] data)
+        {
+            
         }
 
         public virtual void SetFromOtherPacket(Packet o)
@@ -40,6 +46,17 @@ namespace KillerrinStudiosToolkit.Datastructures
             Packet packet = JsonConvert.DeserializeObject<Packet>(jObject.ToString());
 
             SetFromOtherPacket(packet);
+        }
+        #endregion
+
+        #region Serialization
+        public byte[] Serialize() { return (new SerializableString(ThisToJson())).Serialize(); }
+        public void Deserialize(byte[] data)
+        {
+            SerializableString ss = new SerializableString(data);
+            string json = ss.Content;
+
+            JsonToThis(json);
         }
         #endregion
     }
