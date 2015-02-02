@@ -47,6 +47,12 @@ namespace KillerrinStudiosToolkit
         private StreamSocket m_streamSocket;
         private StreamSocketListener m_streamSocketListener;
 
+        public StreamSocketControl StreamSocketControl { get { return m_streamSocket.Control; } }
+        public StreamSocketInformation StreamSocketInformation { get { return m_streamSocket.Information; } }
+
+        public StreamSocketListenerControl StreamSocketListenerControl { get { return m_streamSocketListener.Control; } }
+        public StreamSocketListenerInformation StreamSocketListenerInformation { get { return m_streamSocketListener.Information; } }
+
         private DataReader m_tcpDataReader;
         private DataWriter m_tcpDataWriter;
         #endregion
@@ -57,12 +63,16 @@ namespace KillerrinStudiosToolkit
         public NetworkConnectionEndpoint UDPNetworkConnectionEndpoint { get; protected set; }
         
         public bool IsUDPSetup { get; protected set; }
+        public bool IsUDPListening { get; protected set; }
         public bool IsUDPConnected { get; protected set; }
 
         public object UDPLock = new object();
 
         private DatagramSocket m_datagramSocket;
         private DataWriter m_udpDataWriter;
+
+        public DatagramSocketControl DatagramSocketControl { get { return m_datagramSocket.Control; } }
+        public DatagramSocketInformation DatagramSocketInformation { get { return m_datagramSocket.Information; } }
         #endregion
         #endregion
 
@@ -242,7 +252,7 @@ namespace KillerrinStudiosToolkit
                 TCPNetworkConnectionEndpoint = remoteNetworkConnectionEndpoint;
                 Debug.WriteLine("TCP Connected: " + TCPNetworkConnectionEndpoint.ToString());
             }
-            catch (Exception ex) { Debug.WriteLine(DebugTools.PrintOutException("StartTCPServer", ex)); }
+            catch (Exception ex) { Debug.WriteLine(KTKDebugTools.PrintOutException("StartTCPServer", ex)); }
         }
 
         private async void m_streamSocketListener_ConnectionReceived(StreamSocketListener sender, StreamSocketListenerConnectionReceivedEventArgs args)
@@ -263,7 +273,7 @@ namespace KillerrinStudiosToolkit
                 Debug.WriteLine("Beginning Connection");
                 await DoConnectTCP();
             }
-            catch (Exception ex) { Debug.WriteLine(DebugTools.PrintOutException("m_streamSocketListener_ConnectionReceived", ex)); }
+            catch (Exception ex) { Debug.WriteLine(KTKDebugTools.PrintOutException("m_streamSocketListener_ConnectionReceived", ex)); }
         }
         #endregion
 
@@ -282,7 +292,7 @@ namespace KillerrinStudiosToolkit
 
                 await DoConnectTCP();
             }
-            catch (Exception ex) { Debug.WriteLine(DebugTools.PrintOutException("ConnectTCP", ex)); }
+            catch (Exception ex) { Debug.WriteLine(KTKDebugTools.PrintOutException("ConnectTCP", ex)); }
 
 
         }
@@ -291,6 +301,10 @@ namespace KillerrinStudiosToolkit
         {
             try
             {
+                Debug.WriteLine("Setting TCP StreamSocket Control Settings");
+                StreamSocketControl.NoDelay = true;
+                StreamSocketControl.QualityOfService = SocketQualityOfService.LowLatency;
+
                 Debug.WriteLine("Creating TCPDataWriter");
                 m_tcpDataWriter = new DataWriter(m_streamSocket.OutputStream);
 
@@ -299,7 +313,7 @@ namespace KillerrinStudiosToolkit
 
                 IsTCPConnected = true;
             }
-            catch (Exception ex) { Debug.WriteLine(DebugTools.PrintOutException("ConnectTCP", ex)); }
+            catch (Exception ex) { Debug.WriteLine(KTKDebugTools.PrintOutException("ConnectTCP", ex)); }
 
             // Begin the listen loop
             if (IsTCPConnected)
@@ -324,7 +338,7 @@ namespace KillerrinStudiosToolkit
 
                 Debug.WriteLine("TCPMessage Sent: " + message);
             }
-            catch (Exception ex) { Debug.WriteLine(DebugTools.PrintOutException("SendTCPMessage", ex)); }
+            catch (Exception ex) { Debug.WriteLine(KTKDebugTools.PrintOutException("SendTCPMessage", ex)); }
         }
 
         public async Task BeginListeningTCP()
@@ -379,7 +393,7 @@ namespace KillerrinStudiosToolkit
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(DebugTools.PrintOutException("GetTCPMessage", ex));
+                Debug.WriteLine(KTKDebugTools.PrintOutException("GetTCPMessage", ex));
             }
             return null;
         }
@@ -388,13 +402,30 @@ namespace KillerrinStudiosToolkit
         #region UDP
         public void InitUDP()
         {
+            IsUDPListening = false;
             IsUDPConnected = false;
 
             m_datagramSocket = new DatagramSocket();
             m_datagramSocket.MessageReceived += OnUDPMessageReceived;
 
+            DatagramSocketControl.QualityOfService = SocketQualityOfService.LowLatency;
+
             IsUDPSetup = true;
             Debug.WriteLine("UDP Initialized");
+        }
+
+        public async void StartUDPListening(string port)
+        {
+            if (!IsUDPSetup) InitUDP();
+            if (IsUDPConnected) { ResetUDP(); InitUDP(); }
+
+            try
+            {
+                Debug.WriteLine("Binding UDPPort");
+                await m_datagramSocket.BindServiceNameAsync(port);
+                IsUDPListening = true;
+            }
+            catch (Exception ex) { Debug.WriteLine(KTKDebugTools.PrintOutException("StartUDPListening", ex)); }
         }
 
         public async void ConnectUDP(NetworkConnectionEndpoint remoteNetworkConnectionEndpoint)
@@ -404,8 +435,8 @@ namespace KillerrinStudiosToolkit
 
             try
             {
-                Debug.WriteLine("Binding UDPPort");
-                await m_datagramSocket.BindServiceNameAsync(remoteNetworkConnectionEndpoint.Port);
+                if (!IsUDPListening)
+                    StartUDPListening(remoteNetworkConnectionEndpoint.Port);
 
                 Debug.WriteLine("Connecting UDPSocket");
                 await m_datagramSocket.ConnectAsync(remoteNetworkConnectionEndpoint.HostName, remoteNetworkConnectionEndpoint.Port);
@@ -419,7 +450,7 @@ namespace KillerrinStudiosToolkit
 
                 Debug.WriteLine("UDP Connected: " + UDPNetworkConnectionEndpoint.ToString());
             }
-            catch (Exception ex) { Debug.WriteLine(DebugTools.PrintOutException("ConnectUDP", ex)); }
+            catch (Exception ex) { Debug.WriteLine(KTKDebugTools.PrintOutException("ConnectUDP", ex)); }
         }
 
         public async void SendUDPCloseMessage() { SendUDPMessage(ConnectionCloseMessage); }
@@ -435,7 +466,7 @@ namespace KillerrinStudiosToolkit
 
                 Debug.WriteLine("UDPMessage Sent: " + message);
             }
-            catch (Exception ex) { Debug.WriteLine(DebugTools.PrintOutException("SendUDPMessage", ex)); }
+            catch (Exception ex) { Debug.WriteLine(KTKDebugTools.PrintOutException("SendUDPMessage", ex)); }
         }
 
         void OnUDPMessageReceived(DatagramSocket sender, DatagramSocketMessageReceivedEventArgs args)
@@ -462,7 +493,7 @@ namespace KillerrinStudiosToolkit
                     if (data == ConnectionCloseMessage) { ResetUDP(); }
                 }
             }
-            catch (Exception ex) { Debug.WriteLine(DebugTools.PrintOutException("OnUDPMessageRecieved", ex)); }
+            catch (Exception ex) { Debug.WriteLine(KTKDebugTools.PrintOutException("OnUDPMessageRecieved", ex)); }
         }
         #endregion
 

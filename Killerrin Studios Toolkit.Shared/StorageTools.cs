@@ -60,7 +60,7 @@ namespace KillerrinStudiosToolkit
 
         public static async Task<bool> SaveToStorage(string fileName, ISerializable content)
         {
-            if (Consts.isApplicationClosing) return false;
+            if (KTKConsts.isApplicationClosing) return false;
 
             isSavingComplete = false;
 

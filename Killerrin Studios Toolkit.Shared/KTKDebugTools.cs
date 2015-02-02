@@ -5,7 +5,7 @@ using System.Diagnostics;
 
 namespace KillerrinStudiosToolkit
 {
-    public partial class DebugTools
+    public partial class KTKDebugTools
     {
         // Testing Code
         public static bool DebugMode = Debugger.IsAttached;

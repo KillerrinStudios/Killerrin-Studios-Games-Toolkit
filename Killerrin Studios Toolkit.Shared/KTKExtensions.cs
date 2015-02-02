@@ -5,7 +5,7 @@ using System.Text;
 
 namespace KillerrinStudiosToolkit
 {
-    public static class Extensions
+    public static class KTKExtensions
     {
         public static string ConvertToAPIConpliantString(this string _text, char charToParse = ' ', char replacementChar = '-')
         {
@@ -23,7 +23,7 @@ namespace KillerrinStudiosToolkit
 
         public static string PrintException(this Exception ex, string headerMessage = "")
         {
-            return DebugTools.PrintOutException(headerMessage, ex);
+            return KTKDebugTools.PrintOutException(headerMessage, ex);
         }
 
         public static string AddSpacesToSentence(this string text, bool preserveAcronyms = true)

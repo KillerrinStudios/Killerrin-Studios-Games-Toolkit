@@ -13,8 +13,9 @@ namespace KillerrinStudiosToolkit.Datastructures
     public class Packet
     {
         public uint PacketID { get; protected set; }
-        public bool RequiresAck { get; protected set; }
         public DateTime Timestamp { get; protected set; }
+        public bool RequiresAck { get; protected set; }
+
 
         public Packet(bool requiresAck)
         {
@@ -24,14 +25,14 @@ namespace KillerrinStudiosToolkit.Datastructures
         }
         public Packet(byte[] data)
         {
-            
+            Deserialize(data);
         }
 
-        public virtual void SetFromOtherPacket(Packet o)
+        protected virtual void SetFromOtherPacket(Packet o)
         {
             PacketID = o.PacketID;
-            RequiresAck = o.RequiresAck;
             Timestamp = o.Timestamp;
+            RequiresAck = o.RequiresAck;
         }
 
         #region JSON Tools
@@ -59,5 +60,10 @@ namespace KillerrinStudiosToolkit.Datastructures
             JsonToThis(json);
         }
         #endregion
+
+        public override string ToString()
+        {
+            return ThisToJson();
+        }
     }
 }

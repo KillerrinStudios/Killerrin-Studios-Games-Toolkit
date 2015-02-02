@@ -6,7 +6,7 @@ using System.Net.NetworkInformation;
 
 namespace KillerrinStudiosToolkit
 {
-    public partial class Consts
+    public partial class KTKConsts
     {
         public static bool isApplicationClosing = false;
         public static Random random = new Random();
