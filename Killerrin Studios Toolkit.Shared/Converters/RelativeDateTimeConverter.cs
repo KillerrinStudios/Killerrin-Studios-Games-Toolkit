@@ -15,6 +15,11 @@ namespace KillerrinStudiosToolkit.Converters
         private const int Day = Hour * 24;
         private const int Year = Day * 365;
 
+        /// <summary>
+        /// Converts the DateTime to a relative value sentence
+        /// </summary>
+        /// <param name="utcValue"The Time in UTC></param>
+        /// <returns>A string with the time relative value in a string</returns>
         public static string CalculateConversion(DateTime utcValue)
         {
             var difference = DateTime.UtcNow - utcValue;
