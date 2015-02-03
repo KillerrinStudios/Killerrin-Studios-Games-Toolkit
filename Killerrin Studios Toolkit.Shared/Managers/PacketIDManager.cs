@@ -8,6 +8,8 @@ namespace KillerrinStudiosToolkit.Managers
     {
         public static uint CurrentID { get; set; }
 
+        public static void Reset() { CurrentID = 0; }
+
         public static uint GetNewID()
         {
             uint IDToUse = CurrentID;
