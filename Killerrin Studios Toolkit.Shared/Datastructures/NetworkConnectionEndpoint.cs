@@ -10,6 +10,8 @@ namespace KillerrinStudiosToolkit.Datastructures
         public HostName HostName;
         public string Port;
 
+        public string HostNameAsString { get { return HostName.RawName; } }
+
         public NetworkConnectionEndpoint(string hostName = "localhost", string portOrServiceID = "11321")
         {
             HostName = new HostName(hostName);

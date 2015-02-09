@@ -7,6 +7,8 @@ namespace KillerrinStudiosToolkit.Enumerators
     public enum HostType
     {
         Host,
-        Client
+        Client,
+
+        LocalHost
     }
 }
