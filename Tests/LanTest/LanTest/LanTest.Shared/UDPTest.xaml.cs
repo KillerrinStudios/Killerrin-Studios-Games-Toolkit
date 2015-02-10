@@ -64,6 +64,12 @@ namespace LanTest
             Frame.GoBack();
         }
 #endif
+        private void BackButton_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            resetButton_Tapped(null, null);
+            Frame.GoBack();
+        }
+
 
         void lanHelper_UDPMessageRecieved(object sender, ReceivedMessageEventArgs e)
         {

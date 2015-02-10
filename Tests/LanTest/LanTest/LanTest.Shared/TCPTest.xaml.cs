@@ -65,6 +65,12 @@ namespace LanTest
         }
 #endif
 
+        private void BackButton_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            resetButton_Tapped(null, null);
+            Frame.GoBack();
+        }
+
         void lanHelper_TCPMessageRecieved(object sender, ReceivedMessageEventArgs e)
         {
             Debug.WriteLine("InAppDataEvent");

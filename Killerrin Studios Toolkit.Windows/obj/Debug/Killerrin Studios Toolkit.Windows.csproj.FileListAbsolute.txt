@@ -81,3 +81,22 @@ C:\Users\Andrew\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Too
 C:\Users\Andrew\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit.Windows\bin\Debug\Newtonsoft.Json.dll
 C:\Users\Andrew\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit.Windows\bin\Debug\Newtonsoft.Json.xml
 C:\Users\Andrew\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit.Windows\obj\Debug\Killerrin Studios Toolkit.Windows.csprojResolveAssemblyReference.cache
+D:\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit.Windows\bin\Debug\Killerrin Studios Toolkit.Windows.dll
+D:\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit.Windows\bin\Debug\Killerrin Studios Toolkit.Windows.pdb
+D:\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit.Windows\bin\Debug\Killerrin Studios Toolkit.Windows.pri
+D:\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit.Windows\bin\Debug\Newtonsoft.Json.dll
+D:\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit.Windows\bin\Debug\Newtonsoft.Json.xml
+D:\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit.Windows\obj\Debug\Killerrin Studios Toolkit.Windows.csprojResolveAssemblyReference.cache
+D:\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit.Windows\obj\Debug\Killerrin Studios Toolkit.Windows.dll
+D:\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit.Windows\obj\Debug\Killerrin Studios Toolkit.Windows.pdb
+D:\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit.Windows\obj\Debug\priconfig.xml
+D:\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit.Windows\obj\Debug\priconfig.xml.intermediate
+D:\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit.Windows\obj\Debug\layout.resfiles
+D:\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit.Windows\obj\Debug\layout.resfiles.intermediate
+D:\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit.Windows\obj\Debug\resources.resfiles
+D:\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit.Windows\obj\Debug\resources.resfiles.intermediate
+D:\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit.Windows\obj\Debug\pri.resfiles
+D:\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit.Windows\obj\Debug\pri.resfiles.intermediate
+D:\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit.Windows\obj\Debug\qualifiers.txt
+D:\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit.Windows\obj\Debug\qualifiers.txt.intermediate
+D:\Documents\GitHub\Killerrin-Studios-Toolkit\Killerrin Studios Toolkit.Windows\obj\Debug\MultipleQualifiersPerDimensionFound.txt

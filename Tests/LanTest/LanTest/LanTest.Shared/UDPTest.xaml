@@ -14,11 +14,21 @@
             <ColumnDefinition Width="0.25*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.25*" />
+            <RowDefinition Height="auto" />
             <RowDefinition Height="4*" />
             <RowDefinition Height="0.25*" />
         </Grid.RowDefinitions>
 
+        <!--
+        <Button Grid.Column="1" Grid.Row="0" x:Name="backButton" Margin="0,20,0,20"
+                        Style="{StaticResource NavigationBackButtonNormalStyle}"
+                        Tapped="BackButton_Tapped"
+                        VerticalAlignment="Top"
+                        AutomationProperties.Name="Back"
+                        AutomationProperties.AutomationId="BackButton"
+                        AutomationProperties.ItemType="Navigation Button"/>
+        -->
+        
         <StackPanel Grid.Row="1" Grid.Column="1"
                     Orientation="Vertical" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
 
