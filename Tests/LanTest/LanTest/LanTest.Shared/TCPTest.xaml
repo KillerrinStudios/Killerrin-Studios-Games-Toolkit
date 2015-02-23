@@ -19,15 +19,15 @@
             <RowDefinition Height="0.25*" />
         </Grid.RowDefinitions>
 
-        <!--
+        
         <Button Grid.Column="1" Grid.Row="0" x:Name="backButton" Margin="0,20,0,20"
-                        Style="{StaticResource NavigationBackButtonNormalStyle}"
+                        Content="Back"
                         Tapped="BackButton_Tapped"
                         VerticalAlignment="Top"
                         AutomationProperties.Name="Back"
                         AutomationProperties.AutomationId="BackButton"
                         AutomationProperties.ItemType="Navigation Button"/>
-        -->
+        
         <StackPanel Grid.Row="1" Grid.Column="1"
                     Orientation="Vertical" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
 

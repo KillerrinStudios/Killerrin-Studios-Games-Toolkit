@@ -36,6 +36,9 @@ namespace KillerrinStudiosToolkit
         #region TCP
         public event ReceivedMessageEventHandler TCPMessageRecieved;
         public event OnConnectedEventHandler OnTCPConnected;
+        public event EventHandler OnTCPDisconnected;
+
+
         public NetworkConnectionEndpoint TCPNetworkConnectionEndpoint { get; protected set; }
         
         public bool IsTCPSetup { get; protected set; }
@@ -270,6 +273,8 @@ namespace KillerrinStudiosToolkit
                 Debug.WriteLine("Assigning new TCP socket");
                 m_streamSocket = args.Socket;
 
+                TCPNetworkConnectionEndpoint = new NetworkConnectionEndpoint(m_streamSocket.Information.RemoteHostName, m_streamSocket.Information.RemotePort);
+
                 Debug.WriteLine("Beginning Connection");
                 await DoConnectTCP();
             }
@@ -302,8 +307,8 @@ namespace KillerrinStudiosToolkit
             try
             {
                 Debug.WriteLine("Setting TCP StreamSocket Control Settings");
-                StreamSocketControl.NoDelay = true;
-                StreamSocketControl.QualityOfService = SocketQualityOfService.LowLatency;
+                //StreamSocketControl.NoDelay = true;
+                //StreamSocketControl.QualityOfService = SocketQualityOfService.LowLatency;
 
                 Debug.WriteLine("Creating TCPDataWriter");
                 m_tcpDataWriter = new DataWriter(m_streamSocket.OutputStream);
@@ -360,6 +365,8 @@ namespace KillerrinStudiosToolkit
                             TCPMessageRecieved(this, outputArgs);
                         }
 
+                        if (OnTCPDisconnected != null) OnTCPDisconnected(this, null);
+
                         IsTCPListening = false;
                         ResetTCP();
                     }
@@ -378,6 +385,8 @@ namespace KillerrinStudiosToolkit
             }
         }
 
+        private int failedCounter = 0;
+        public int MaxFailedInRowBeforeTimeout = 25;
         private async Task<string> GetTCPMessage()
         {
             try
@@ -389,11 +398,16 @@ namespace KillerrinStudiosToolkit
                 var message = m_tcpDataReader.ReadString(messageLen);
                 Debug.WriteLine("Message received: " + message);
 
+                failedCounter = 0;
+
                 return message;
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(KTKDebugTools.PrintOutException("GetTCPMessage", ex));
+                failedCounter++;
+
+                if (failedCounter >= MaxFailedInRowBeforeTimeout) return ConnectionCloseMessage;
             }
             return null;
         }

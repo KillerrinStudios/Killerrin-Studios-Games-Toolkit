@@ -44,6 +44,7 @@ namespace LanTest
 
             lanHelper = new LANHelper(Consts.APPGuid);
             lanHelper.TCPMessageRecieved += lanHelper_TCPMessageRecieved;
+            lanHelper.OnTCPConnected += lanHelper_OnTCPConnected;
 
             // Set the current IP Address
             string currentIP = LANHelper.CurrentIPAddressAsString();
@@ -73,10 +74,17 @@ namespace LanTest
 
         void lanHelper_TCPMessageRecieved(object sender, ReceivedMessageEventArgs e)
         {
-            Debug.WriteLine("InAppDataEvent");
             CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
                 chatTextBlock.Text = e.Message;
+            });
+        }
+
+        void lanHelper_OnTCPConnected(object sender, OnConnectedEventArgs e)
+        {
+            CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            {
+                chatTextBlock.Text = "Connected To: " + e.NetworkConnectionEndpoint.ToString();
             });
         }
 

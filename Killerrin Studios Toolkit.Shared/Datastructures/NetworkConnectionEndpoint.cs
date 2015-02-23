@@ -16,7 +16,7 @@ namespace KillerrinStudiosToolkit.Datastructures
         {
             HostName = new HostName(hostName);
 
-            if (portOrServiceID == null) Port = "11321";
+            if (string.IsNullOrEmpty(portOrServiceID)) Port = "11321";
             else Port = portOrServiceID;
         }
 
@@ -24,19 +24,30 @@ namespace KillerrinStudiosToolkit.Datastructures
         {
             HostName = hostName;
 
-            if (portOrServiceID == null) Port = "11321";
+            if (string.IsNullOrEmpty(portOrServiceID)) Port = "11321";
             else Port = portOrServiceID;
         }
 
+        /// <summary>
+        /// Parses a string into a NetworkConnectionEndpoint
+        /// </summary>
+        /// <param name="stringToParse">A Colon Delimited IPAddress/Port Pair</param>
+        /// <returns>The parsed NetworkConnectionEndpoint</returns>
         public static NetworkConnectionEndpoint Parse(string stringToParse)
         {
             string[] textSplit = stringToParse.Split(new char[] { ':' });
             string ipAddress = textSplit[0];
-            string port = (textSplit.Length >= 2 ? textSplit[1] : null);
+            string port = (textSplit.Length >= 2 ? textSplit[1] : "");
 
             return new NetworkConnectionEndpoint(ipAddress, port);
 
         }
+
+        /// <summary>
+        /// Parses a string into a NetworkConnectionEndpoint
+        /// </summary>
+        /// <param name="stringToParse">A Colon Delimited IPAddress/Port Pair</param>
+        /// <returns>The parsed NetworkConnectionEndpoint</returns>
         public static bool TryParse(string stringToParse, NetworkConnectionEndpoint? networkConnectionEndpoint)
         {
             try
@@ -49,7 +60,7 @@ namespace KillerrinStudiosToolkit.Datastructures
 
         public override string ToString()
         {
-            return "IP|" + HostName.RawName + ":" + Port;
+            return HostName.RawName + ":" + Port;
         }
     }
 }

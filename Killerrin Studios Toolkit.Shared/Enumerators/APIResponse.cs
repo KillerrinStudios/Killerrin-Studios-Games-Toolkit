@@ -10,6 +10,8 @@ namespace KillerrinStudiosToolkit.Enumerators
         Successful,
         Failed,
 
+        KTKFailed,
+
         //-- Standard Errors
         APIError,
         NetworkError,
