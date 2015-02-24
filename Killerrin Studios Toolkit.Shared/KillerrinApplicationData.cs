@@ -29,10 +29,11 @@ namespace KillerrinStudiosToolkit
         public string OtherWebsite;
 
 #if WINDOWS_PHONE_APP
-        public ClientOSType OS = ClientOSType.WindowsPhone81;
+        public static ClientOSType OSType = ClientOSType.WindowsPhone81;
 #elif WINDOWS_APP
-        public ClientOSType OS = ClientOSType.Windows81;
+        public static ClientOSType OSType = ClientOSType.Windows81;
 #endif
+        public ClientOSType OS { get { return KillerrinApplicationData.OSType; } }
 
         public KillerrinApplicationData(string packageID,
                                         string publisherID,
