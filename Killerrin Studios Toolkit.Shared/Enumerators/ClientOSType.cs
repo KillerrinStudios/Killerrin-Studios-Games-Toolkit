@@ -7,6 +7,8 @@ namespace KillerrinStudiosToolkit.Enumerators
     public enum ClientOSType
     {
         WindowsPhone81,
-        Windows81
+        Windows81,
+        Windows10,
+        Other
     }
 }
