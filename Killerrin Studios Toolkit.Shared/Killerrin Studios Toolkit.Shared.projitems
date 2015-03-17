@@ -10,6 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)BluetoothConnectionHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\ShorthandCurrencyConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)KTKConsts.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\RelativeDateTimeConverter.cs" />
