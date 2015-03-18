@@ -16,7 +16,7 @@ namespace KillerrinStudiosToolkit.Datastructures
         public DateTime Timestamp { get; protected set; }
         public bool RequiresAck { get; protected set; }
 
-
+        //public Packet() { }
         public Packet(bool requiresAck)
         {
             PacketID = PacketIDManager.GetNewID();
