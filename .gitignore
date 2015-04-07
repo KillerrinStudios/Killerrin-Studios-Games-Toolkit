@@ -214,3 +214,8 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+*.pdb
+Killerrin Studios Toolkit.Windows/obj/Debug/Killerrin Studios Toolkit.Windows.pdb
+*.pdb
+Killerrin Studios Toolkit.WindowsPhone/bin/Debug/Killerrin Studios Toolkit.WindowsPhone.pdb
+Killerrin Studios Toolkit.Windows/obj/Debug/Killerrin Studios Toolkit.Windows.pdb

@@ -21,7 +21,11 @@ namespace KillerrinStudiosToolkit.Converters
             if (value > 100000) return stringValue.Substring(0, 3) + "K";
             if (value > 10000) return stringValue.Substring(0, 2) + "K";
             if (value > 1000) return stringValue.Substring(0, 1) + "K";
-            return stringValue;
+
+            if (stringValue.Length > 3)
+                return stringValue.Substring(0, 3);
+            else
+                return stringValue;
         }
         public static string ConvertBackToRegularForm(string value)
         {
